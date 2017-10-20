@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+ "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><?php echo $pageTitle; ?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="controller.css">
+</head>
+
+<body>
+
+<h2><?php echo $pageTitle; ?></h2>
+
+<div style="margin: 20px 40px;">
+	<form action="index.php">
+	
+	<input type="hidden" name="action" value="add_song"></input>
+	
+	<h3>Song Title</h3>
+	<input type="text" name="title" value="<?php echo $_REQUEST['title']; ?>" size="50" style="width: 250px;"></input>
+	
+	<h3>Song Lyrics</h3>
+	<textarea name="lyrics" rows="20" cols="40"><?php echo $lyrics; ?></textarea>
+	
+	<p style="font-size: 0.7em;">Be careful of long lines.<br>Use one or more empty lines to separate verses.</p>
+	
+	<input type="submit" value="Save Song" style="font-size: 1.1em;"></input>
+
+	</form>
+</div>
+
+</body>
+</html>
