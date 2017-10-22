@@ -3,8 +3,8 @@ const bodyParser = require('body-parser')
 const router = new Router()
 router.use(bodyParser.json())
 
-const redis = require("redis")
-const bluebird = require("bluebird")
+const redis = require('redis')
+const bluebird = require('bluebird')
 bluebird.promisifyAll(redis.RedisClient.prototype)
 bluebird.promisifyAll(redis.Multi.prototype)
 
@@ -14,8 +14,8 @@ const tenantId = 'default-user'
 const key = namespace + ':' + tenantId
 const maxIdField = 'maxSongId'
 
-client.on("error", function (err) {    
-    console.log("Error " + err)
+client.on('error', function (err) {    
+    console.log('Error ' + err)
 })
 
 router.route('/')

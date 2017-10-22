@@ -11,8 +11,19 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "express-promise-router": "^2.0.0",
     "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "files-exist": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-filter": "^5.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^3.1.0",
+    "lodash": "^4.17.4",
+    "run-sequence": "^2.2.0"
   }
 }
