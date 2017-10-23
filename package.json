@@ -14,6 +14,7 @@
     "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "express-promise-router": "^2.0.0",
+    "jquery": "^3.2.1",
     "redis": "^2.8.0"
   },
   "devDependencies": {
