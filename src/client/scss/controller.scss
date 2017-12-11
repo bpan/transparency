@@ -1,180 +1,146 @@
+$body-color: #3a3f4f;
+$white-text: #ddd;
+$song-background-color: #818594;
+$design-background-color: #99d;
+$song-title-color: #ccd3ef;
+$verse-number-color: #99a;
+
+html {
+  height: 100%;
+}
+
 body {
-	background-color: #222;
-	color: #555;
-	font-family: Helvetica, Verdana, Arial, sans-serif; }
-h1,h2,h3,h4,h5 { color: #556; font-family: Palatino, Times New Roman, Georgia, serif; }
-input,textarea { background-color: #ccc; color: #2c2c2c; }
-input.highlight { color: #b70; }
-textarea { font-size: 0.8em; }
-div.defaultText { margin: 20px; color: #555; }
-a { font-size: 0.9em; }
-a:link {color: #339; }
-a:visited {color: #552290; }
-ul#allSlides { padding-left: 20px; list-style: none; }
-/* Browse Songs */
-ul#allSlides { color: #333; }
-
-
-/* Overall Frame */
-table#controllerFrame { margin: 30px 0px 0px 20px; }
-
-/* Set Builder */
-td#setBuilder { width: 260px; height: 300px; }
-div#songSet { margin: auto; width: 250px; text-align: center; }
-div#setHeader { margin: 0px auto; width: 250px; text-align: center; }
-div#setHeader input[type=text] { background-color: #999; }
-div#setHeader input[type=text]:focus { background-color: #eee; }
-div#songFinder {
-	margin: 0px 0px 30px;
-	border: solid thin #112;
-	padding: 10px;
-	background-color: #666;
-	color: #2c2c2c;
-	text-align: right;
-	font-size: 0.7em; }
-input[type=text] { margin: 2px; width: 145px; font-size: 0.8em; }
-div#setDiv {
-	margin: 20px auto;
-	border: solid thin #112;
-	padding: 5px;
-	width: 238px; 
-	background-color: #333;
-}
-ul#setList { margin: 0; padding: 0; list-style: none; }
-li.setTitle {
-	margin: 5px;
-	border: solid 2px #777;
-	padding: 5px 0px 5px 10px;
-	background-color: #222;
-	color: #666;
-	width: 213px;
-	text-align: left;
-	font-size: 0.6em;
-	font-weight: lighter;
-	cursor: pointer; }
-li.current { border-color: #aaa; background-color: #446; color: #aaa; }
-li.setTitle div.songName { float: left; }
-li.setTitle div.deleteSong { float: right; padding: 0 10px 0 5px; }
-li.setTitle.current div.deleteSong { display: none; }
-li.setTitle div.deleteSong:hover { color: #c22; }
-li.setTitle div.spacer { clear: both; }
-
-div.ac_results {
-	padding: 0;
-	border: 1px solid WindowFrame;
-	background-color: #ccc;
-	overflow: hidden;
+  height: 100%;
+  background-color: $body-color;
+  color: $white-text;
 }
 
-div.ac_results ul {
-	width: 100%;
-	list-style-position: outside;
-	list-style: none;
-	padding: 0;
-	margin: 0;
+.controller {
+  height: 100%;
+  padding: 25px;
 }
 
-div.ac_results iframe {
-	display:none;/*sorry for IE5*/
-	display/**/:block;/*sorry for IE5*/
-	position:absolute;
-	top:0;
-	left:0;
-	z-index:-1;
-	filter:mask();
-	width:3000px;
-	height:3000px;
+.workspace {
+  flex: 1;
+
+  .tabs {
+    .tab {
+      flex: 1;
+      padding: 9px 0;
+      text-align: center;
+      font-size: 16px;
+
+      &.setlist {
+        background-color: $song-background-color;
+      }
+  
+      &.design {
+        background-color: $design-background-color;
+      }
+    }
+  }
+
+  .setlist-content {
+    flex: 1;
+    padding: 0 20px;
+    background-color: $song-background-color;
+
+    .add-song {
+      margin-bottom: 20px;
+      padding: 15px 0 25px;
+      border-bottom: solid 2px #aaa;
+    }
+  
+    .heading {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #c8c8e5;
+    }
+  
+    input {
+      margin: 10px 0;
+    }
+  
+    a {
+      text-decoration: underline;
+      color: $white-text;
+    }
+  
+    .setlist {
+      .song {
+        margin-bottom: 10px;
+        padding: 3px 7px;
+        background-color: #f8f8f8;
+        line-height: 20px;
+        font-size: 12px;
+        color: #888;
+        
+        .song-title {
+          flex: 1;
+        }
+      
+        .remove-song, .reorder-song {
+          visibility: hidden;
+          margin-right: 5px;
+        
+          .fa {
+            line-height: 20px;
+            color: #999;
+            
+            &.fa-trash {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      
+      .song:hover .remove-song, .song:hover .reorder-song {
+        visibility: visible;
+      };
+    }
+  }
 }
 
-div.ac_results li {
-	margin: 0px;
-	padding: 2px 5px;
-	cursor: pointer;
-	display: block;
-	width: 100%;
-	font: menu;
-	font-size: 12px;
-	overflow: hidden;
-	color: black;
+.monitor {
+  flex: 3;
+  margin-left: 30px;
+  
+  .song {
+    flex: 1;
+  
+    .title {
+      margin-bottom: 20px;
+      margin-left: 25px;
+      font-size: 42px;
+      color: $song-title-color;
+    }
+  
+    .verse {
+      font-size: 18px;
+  
+      .verse-number {
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+        color: $verse-number-color;
+      }
+  
+      .verse-text {
+        margin-left: 25px;
+        border: solid 1px transparent;
+        padding: 10px 0 10px 10px;
+      }
+    
+      &.current .verse-text {
+        border: solid 1px $white-text;
+        background-color: #595d6a;
+      }
+    }
+  }
+  
+  .control-panel {
+    height: 110px;
+    width: 100%;
+    background-color: #222326;
+  }
 }
-div.ac_results li span.preview{
-	color: #888;
-	font-style: italic;
-}
-input.ac_loading {
-	background : url('../img/indicator.gif') right center no-repeat;
-}
-li.ac_over {
-	background-color: Highlight;
-	color: HighlightText;
-}
-
-
-/* Control Box */
-td.controlPanel div#padControl { margin: auto; padding-top: 40px; text-align: center; }
-td.controlPanel div#controller {
-	margin: 10px auto;
-	border: solid thin #112;
-	padding: 10px 10px;
-	width: 200px;
-	background-color: #445; }
-td.controlPanel td.ctrlHeader { padding: 0 1em 5px 0; text-align: center; color: gray; font-size: 0.8em; }
-td.controlPanel input[type='button'] { float: left; margin: 5px; width: 65px; }
-td.controlPanel div.keyHint {
-	float: right;
-	margin: 5px;
-	color: #668;
-	font-size: 0.8em; }
-td.controlPanel div.buttonHint {
-	float: right; 
-	margin: 5px 0px; 
-	padding: 7px 3px 4px; 
-	color: #668; 
-	font-size: 0.6em; }
-div#controlHints { visibility: hidden; margin: 10px auto 0; width: 200px; font-size: 0.7em; color: #444; }
-div#controlHints:hover { color: #555; }
-div#controlHints table#hints { margin: 5px 0; }
-
-/* Song Monitor */
-td#songMonitor { width: 830px; }
-div#songDisplay { margin: 0px 15px; width: 800px; text-align: center; }
-div#monitor { 
-	border: solid thin #112;
-	padding: 0 15px 30px;
-	width: 800px;
-	min-height: 600px;
-	background-color: #333;
-	color: #999;
-	text-align: left; }
-div.error { padding: 1em 0.5em; color: #c22; font-size: 1.2em; }
-div#monitor h1,
-div#monitor h2,
-div#monitor h3,
-div#monitor h4,
-div#monitor h5 { color: #667; margin-left: 1em;}
-div#monitor div.verseNum { float: left; margin: 0.6em 0 0 0.6em; font-size: 0.9em; color: #555; }
-/* div#monitor div.current div.verseNum { display: none; } */
-div#monitor div.versePad { 
-	margin-left: 20px; 
-	border: solid thin #333;
-	padding: 10px 0 10px 10px;
-	cursor: pointer; }
-div#monitor div.current div.versePad {
-	border: solid thin #777;
-	background-color: #444;
-	color: #999; }
-
-/*
-div#monitor div.current div.versePad {
-	margin-left: 0;
-	padding: 10px 10px 10px 20px;
-	border: solid thin #777; 
-	background-color: #111; 
-	color: #ddd;
-	font-family: Palatino, Georgia, Times New Roman, serif;
-	font-size: 2em;
-	line-height: 1.3em; }
-*/
-
-/* Debug */
-div.frame { border: solid thin red; }

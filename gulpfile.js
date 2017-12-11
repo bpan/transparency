@@ -25,12 +25,17 @@ gulp.task('sass', function() {
     .pipe(gulp.dest(buildDest + 'client/css'))
 })
 
+gulp.task('fonts', function() {
+  return gulp.src('node_modules/font-awesome/fonts/*')
+    .pipe(gulp.dest(buildDest + 'client/fonts'))
+})
+
 gulp.task('vendor', function() {
     return gulp.src(filesExist(_.map(vendorFiles, filename => 'node_modules/' + filename)))
         .pipe(gulp.dest(buildDest + 'client/vendor'))
 })
 
-gulp.task('client', ['sass', 'vendor'], function() {
+gulp.task('client', ['sass', 'fonts', 'vendor'], function() {
   return gulp.src([clientSrc + '**/*', '!' + clientSrc + 'scss', '!' + clientSrc + 'scss/**/*'])
     .pipe(gulp.dest(buildDest + 'client/'))
 })
