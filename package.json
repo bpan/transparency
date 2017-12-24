@@ -2,9 +2,14 @@
   "name": "transparency",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "engines": {
+    "node": "8.x.x",
+    "npm": "5.x.x"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp compile",
+    "start": "node dist/server/server.js"
   },
   "author": "",
   "license": "ISC",

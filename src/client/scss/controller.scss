@@ -56,9 +56,14 @@ body {
       font-size: 16px;
       color: #c8c8e5;
     }
-  
-    input {
+    
+    .form-control {
       margin: 10px 0;
+      border-radius: 0;
+      
+      &::placeholder {
+        color: #bbb;
+      }
     }
   
     a {
@@ -73,7 +78,7 @@ body {
         background-color: #f8f8f8;
         line-height: 20px;
         font-size: 12px;
-        color: #888;
+        color: #777;
         
         .song-title {
           flex: 1;
@@ -85,7 +90,6 @@ body {
         
           .fa {
             line-height: 20px;
-            color: #999;
             
             &.fa-trash {
               font-size: 14px;
