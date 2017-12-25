@@ -60,7 +60,7 @@ gulp.task('serve', ['compile'], function() {
     watch: buildDest + 'server',
     ext: 'js',
     env: {
-      'SERVER_PORT': '3000',
+      'PORT': '3000',
       'REDIS_URL': 'redis://127.0.0.1:6379'
     }
   });
