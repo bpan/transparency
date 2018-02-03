@@ -2,13 +2,13 @@
 Song lyric presentation program
 
 # Try it out
-https://transparency.herokuapp.com/
+https://transparency-sing.herokuapp.com/
 
-# Developers
+# Developer Info
 
 Tools needed:
 
-* brew install redis
+* https://postgresapp.com/
 * brew install node
 * npm install -g npm
 * npm install -g gulp
@@ -16,5 +16,18 @@ Tools needed:
 After cloning the repository:
 
 * npm install
-* redis-server /usr/local/etc/redis.conf
 * gulp serve
+
+# Schema
+
+tenant
+* tenant_id
+* name
+
+song
+* song_id
+* tenant_id
+* title
+* lyrics
+* songwriters
+* artists

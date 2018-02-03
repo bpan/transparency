@@ -53,7 +53,7 @@ gulp.task('compile', function(cb) {
     )
 })
 
-// Start the node server
+// Start a development node server
 gulp.task('serve', ['compile'], function() {
   nodemon({
     script: buildDest + 'server/server.js',
@@ -61,7 +61,7 @@ gulp.task('serve', ['compile'], function() {
     ext: 'js',
     env: {
       'PORT': '3000',
-      'REDIS_URL': 'redis://127.0.0.1:6379'
+      'DATABASE_URL': 'postgres://localhost/postgres'
     }
   });
 
