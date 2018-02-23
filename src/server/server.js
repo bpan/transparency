@@ -1,6 +1,6 @@
-const express = require('express')
-const songs = require('./songs.js')
-const path = require('path');
+import * as express from 'express'
+import * as songs from './songs.js'
+import * as path from 'path'
 
 const app = express()
 

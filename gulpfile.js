@@ -11,7 +11,7 @@ const _ = require('lodash')
 
 const clientSrc = 'src/client/'
 const serverSrc = 'src/server/'
-const buildDest = 'dist/'
+const buildDest = 'gulp/' // Deprecated
 
 gulp.task('clean', function(cb) {
     del(buildDest).then(function() {
@@ -47,17 +47,17 @@ gulp.task('server', function() {
 
 gulp.task('compile', function(cb) {
     return runSequence.use(gulp)(
-        'clean',
+        // 'clean',
         ['client', 'server'],
         cb
     )
 })
 
 // Start a development node server
-gulp.task('serve', ['compile'], function() {
+gulp.task('serve', function() {
   nodemon({
-    script: buildDest + 'server/server.js',
-    watch: buildDest + 'server',
+    script: 'dist/server/server.bundle.js',
+    watch: 'dist/server',
     ext: 'js',
     env: {
       'PORT': '3000',
@@ -65,7 +65,7 @@ gulp.task('serve', ['compile'], function() {
     }
   });
 
-  gulp.watch([clientSrc + '**/*'], ['client']);
-  gulp.watch([serverSrc + '**/*'], ['server']);
+  // gulp.watch([clientSrc + '**/*'], ['client']);
+  // gulp.watch([serverSrc + '**/*'], ['server']);
 });
         

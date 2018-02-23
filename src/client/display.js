@@ -1,3 +1,9 @@
+import * as $ from 'jquery'
+import 'bootstrap'
+import './scss/reset.scss'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './scss/display.scss'
+
 var newWindow = '';
 
 function popWindow(url) {
@@ -11,7 +17,7 @@ function popWindow(url) {
 	if (newWindow.focus) {
 		newWindow.focus();
 	}
-	$('body').css('cursor', 'auto');
+  $('body').css('cursor', 'auto');
 	return false;
 }
 //
@@ -32,7 +38,10 @@ function popWindow(url) {
 // });
 
 $(document).click(function(e) {
-	$('body').css('cursor', 'wait');
-	popWindow("controller.html");
+  $('body').css('cursor', 'wait');
+  popWindow("controller.html");
 });
+// document.addEventListener("DOMContentLoaded", function(event) {
+  // element.addEventListener('click', function() { popWindow("controller.html") }, false);
+// });
 
