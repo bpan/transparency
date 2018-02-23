@@ -18,6 +18,11 @@ After cloning the repository:
 * npm install
 * gulp serve
 
+Project Management
+
+* [Trello board](https://trello.com/b/5aa6l7J4/transparency)
+* [UI prototype](https://marvelapp.com/ai9ebi4)
+
 # Schema
 
 tenant
