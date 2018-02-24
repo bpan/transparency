@@ -16,6 +16,7 @@ gulp.task('clean', function(cb) {
 
 gulp.task('webpack', function(cb) {
   exec('npx webpack', function (err, stdout, stderr) {
+    // The easiest way to debug this is by running 'npx webpack' from a command line shell
     cb(err);
   });
 });
