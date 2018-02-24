@@ -1,63 +1,42 @@
 'use strict';
  
-const gulp = require('gulp')
-const del = require('del')
-const runSequence = require('run-sequence')
-const sass = require('gulp-sass')
-const filesExist = require('files-exist')
-const nodemon = require('gulp-nodemon')
-const vendorFiles = require('./vendor.js')
-const _ = require('lodash')
+const gulp = require('gulp');
+const del = require('del');
+const runSequence = require('run-sequence');
+const exec = require('child_process').exec;
+const nodemon = require('gulp-nodemon');
 
-const clientSrc = 'src/client/'
-const serverSrc = 'src/server/'
-const buildDest = 'gulp/' // Deprecated
+const buildDest = 'dist/';
 
 gulp.task('clean', function(cb) {
-    del(buildDest).then(function() {
-        cb()
-    });
-})
+  del(buildDest).then(function() {
+    cb();
+  });
+});
 
-gulp.task('sass', function() {
-  return gulp.src(clientSrc + 'scss/*')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(buildDest + 'client/css'))
-})
+gulp.task('webpack', function(cb) {
+  exec('npx webpack', function (err, stdout, stderr) {
+    cb(err);
+  });
+});
 
-gulp.task('fonts', function() {
-  return gulp.src('node_modules/font-awesome/fonts/*')
-    .pipe(gulp.dest(buildDest + 'client/fonts'))
-})
+gulp.task('html', function() {
+  return gulp.src('src/**/*.html')
+    .pipe(gulp.dest(buildDest));
+});
 
-gulp.task('vendor', function() {
-    return gulp.src(filesExist(_.map(vendorFiles, filename => 'node_modules/' + filename)))
-        .pipe(gulp.dest(buildDest + 'client/vendor'))
-})
-
-gulp.task('client', ['sass', 'fonts', 'vendor'], function() {
-  return gulp.src([clientSrc + '**/*', '!' + clientSrc + 'scss', '!' + clientSrc + 'scss/**/*'])
-    .pipe(gulp.dest(buildDest + 'client/'))
-})
-
-gulp.task('server', function() {
-  return gulp.src([serverSrc + '**/*'])
-    .pipe(gulp.dest(buildDest + 'server/'))
-})
-
-gulp.task('compile', function(cb) {
-    return runSequence.use(gulp)(
-        // 'clean',
-        ['client', 'server'],
-        cb
-    )
-})
+gulp.task('build', function(cb) {
+  return runSequence.use(gulp)(
+    ['webpack', 'html'],
+    cb
+  );
+});
 
 // Start a development node server
-gulp.task('serve', function() {
+gulp.task('serve', ['build'], function() {
   nodemon({
-    script: 'dist/server/server.bundle.js',
-    watch: 'dist/server',
+    script: buildDest + 'server/server.bundle.js',
+    watch: buildDest + 'server',
     ext: 'js',
     env: {
       'PORT': '3000',
@@ -65,7 +44,6 @@ gulp.task('serve', function() {
     }
   });
 
-  // gulp.watch([clientSrc + '**/*'], ['client']);
-  // gulp.watch([serverSrc + '**/*'], ['server']);
+  gulp.watch('src/**/*', ['build']);
 });
         

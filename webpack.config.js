@@ -49,13 +49,19 @@ var clientConfig = {
         use: [
           'file-loader'
         ]
+      },
+      {
+        test: /\.(svg|woff|woff2|ttf|eot)$/,
+        use: [
+          'file-loader'
+        ]
       }
     ]
   },
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
+      $: 'jquery',  // For bootstrap
+      Popper: 'popper.js'  // For bootstrap
     }),
     extractSass
   ]

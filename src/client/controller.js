@@ -1,3 +1,11 @@
+import * as $ from 'jquery'
+import './scss/reset.scss'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'font-awesome/css/font-awesome.css'
+import './scss/controller.scss'
+
+
 var od = opener.document;
 var bgImage = "url(../img/Panther%20Aqua%20Graphite.jpg)";
 var $song = $('div#song', od);
