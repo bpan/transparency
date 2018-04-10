@@ -1,4 +1,6 @@
 import * as $ from 'jquery'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import './scss/reset.scss'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
