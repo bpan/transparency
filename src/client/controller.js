@@ -1,12 +1,14 @@
 import * as $ from 'jquery'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom';
+import Controller from './components/Controller.jsx';
 import './scss/reset.scss'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.css'
 import './scss/controller.scss'
 
+render(<Controller />, document.getElementById('app'));
 
 var od = opener.document;
 var bgImage = "url(../img/Panther%20Aqua%20Graphite.jpg)";
@@ -57,7 +59,7 @@ var t = {
 					containment: $('div#setDiv'),
 					delay: 1,
 					update: function() {
-								setTimeout(function() { $('ul#setList', od).html($set.html()); }, 1); 
+								setTimeout(function() { $('ul#setList', od).html($set.html()); }, 1);
 							}
 				}
 			);
@@ -185,9 +187,9 @@ var t = {
 	},
 	init: function() {
 		var animateDelay = 9000;
-		
+
 		$('body', od).css('cursor', 'auto');
-		
+
 		if ($('div#titleScreen div', od).html().search(/controller/) >= 0) {
 			animateDelay = 2000;
 		}
@@ -196,7 +198,7 @@ var t = {
 				$('div#titleScreen', od).hide();
 			});
 		}, animateDelay);
-		
+
 		/* Set Control */
 		$('div#controller input#setPrev').click(function(e) { 		t.cont.setPrev();		});
 		$('div#controller input#setNext').click(function(e) { 		t.cont.setNext();		});
@@ -213,12 +215,12 @@ var t = {
 		if ($('div#blackScreen', od).hasClass('active')) {
 			$('div#controller input#blackScreen').val('Resume').toggleClass('highlight');
 		}
-		
+
 		t.suggest.init();
-		
+
 		t.cont.initSet();
 		t.cont.initSong();
-		
+
 		if ($set.html().replace(/\s+/, "") == "") {
 			$set.html('<div class="defaultText">Use the input above to start building your song set.</div>');
 			$set.append('<div class="defaultText">Drag-and-drop the songs to reorder.</div>');
@@ -247,7 +249,7 @@ var t = {
 					t.cont.songTop();
 					break;
 				case 8:		// delete
-				case 37:	// left	
+				case 37:	// left
 				case 38:	// up
 				case 65:	// A
 					t.cont.scrollPrev();
@@ -323,14 +325,14 @@ var t = {
 		},
 		findValue: function(li) {
 			if (li == null ) return alert("No match!");
-			
+
 			if (!!li.extra) {
 				var sValue = li.extra[0];
 			} else {
 				var sValue = li.selectValue;
 				alert("The value you selected was: " + sValue);
 			}
-			
+
 		},
 		selectSong: function(li) {
 			if (li == null ) return alert("No song selected!");
