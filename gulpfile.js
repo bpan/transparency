@@ -1,10 +1,11 @@
 'use strict';
- 
+
 const gulp = require('gulp');
 const del = require('del');
-const runSequence = require('run-sequence');
-const exec = require('child_process').exec;
 const nodemon = require('gulp-nodemon');
+
+const webpack = require('webpack');
+const webpackConfigDev = require('./webpack.config.dev');
 
 const buildDest = 'dist/';
 
@@ -14,10 +15,19 @@ gulp.task('clean', function(cb) {
   });
 });
 
-gulp.task('webpack', function(cb) {
-  exec('npx webpack', function (err, stdout, stderr) {
-    // The easiest way to debug this is by running 'npx webpack' from a command line shell
-    cb(err);
+gulp.task('webpack-dev', function(cb) {
+  webpack(webpackConfigDev).run((err, stats) => {
+    if (err) {
+      console.log(err, stats);
+      throw err;
+    }
+
+    if (stats.hasErrors()) {
+      console.error(`Error: webpack`);
+      throw new Error(`Error: webpack`);
+    }
+
+    cb();
   });
 });
 
@@ -26,25 +36,22 @@ gulp.task('html', function() {
     .pipe(gulp.dest(buildDest));
 });
 
-gulp.task('build', function(cb) {
-  return runSequence.use(gulp)(
-    ['webpack', 'html'],
-    cb
-  );
-});
+gulp.task('build', gulp.series(['webpack-dev', 'html']));
 
 // Start a development node server
-gulp.task('serve', ['build'], function() {
-  nodemon({
-    script: buildDest + 'server/server.bundle.js',
-    watch: buildDest + 'server',
-    ext: 'js',
-    env: {
-      'PORT': '3000',
-      'DATABASE_URL': 'postgres://localhost/postgres'
-    }
-  });
+gulp.task('serve', gulp.series([
+  'build',
+  function() {
+    nodemon({
+      script: buildDest + 'server/server.bundle.js',
+      watch: buildDest + 'server',
+      ext: 'js',
+      env: {
+        'PORT': '3000',
+        'DATABASE_URL': 'postgres://localhost/postgres'
+      }
+    });
 
-  gulp.watch('src/**/*', ['build']);
-});
-        
+    gulp.watch('src/**/*', gulp.series(['build']));
+  }
+]));
