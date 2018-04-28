@@ -4,8 +4,9 @@ const gulp = require('gulp');
 const del = require('del');
 const nodemon = require('gulp-nodemon');
 
+process.env.WEBPACK_CONFIG = process.env.WEBPACK_CONFIG || './webpack.config.dev';
+const webpackConfig = require(process.env.WEBPACK_CONFIG);
 const webpack = require('webpack');
-const webpackConfigDev = require('./webpack.config.dev');
 
 const buildDest = 'dist/';
 
@@ -15,8 +16,8 @@ gulp.task('clean', function(cb) {
   });
 });
 
-gulp.task('webpack-dev', function(cb) {
-  webpack(webpackConfigDev).run((err, stats) => {
+gulp.task('webpack', function(cb) {
+  webpack(webpackConfig).run((err, stats) => {
     if (err) {
       console.log(err, stats);
       throw err;
@@ -36,7 +37,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest(buildDest));
 });
 
-gulp.task('build', gulp.series(['webpack-dev', 'html']));
+gulp.task('build', gulp.series(['webpack', 'html']));
 
 // Start a development node server
 gulp.task('serve', gulp.series([
