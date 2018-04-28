@@ -4,8 +4,7 @@ const gulp = require('gulp');
 const del = require('del');
 const nodemon = require('gulp-nodemon');
 
-process.env.WEBPACK_CONFIG = process.env.WEBPACK_CONFIG || './webpack.config.dev';
-const webpackConfig = require(process.env.WEBPACK_CONFIG);
+const webpackConfig = require(process.env.WEBPACK_CONFIG || './webpack.config.dev');
 const webpack = require('webpack');
 
 const buildDest = 'dist/';
