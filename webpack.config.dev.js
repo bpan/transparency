@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const serverConfig = {
   target: 'node',
@@ -9,9 +8,9 @@ const serverConfig = {
     __dirname: false
   },
   entry: ['babel-polyfill', './server.js'],
-  externals: [
-    /node_modules/
-  ],
+  // externals: [
+  //   /node_modules/
+  // ],
   mode: 'development',
   output: {
     filename: 'server.bundle.js',
@@ -38,15 +37,15 @@ const serverConfig = {
 const clientConfig = {
   context: path.resolve(__dirname, 'src/client'),
   devtool: 'inline-source-map',
-  entry: {
+    entry: {
     display: './display.js',
     controller: './controller.js'
   },
+  mode: 'development',
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/client')
   },
-  mode: 'development',
   module: {
     rules: [
       {

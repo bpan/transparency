@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "yarn run webpack:prod",
+    "postinstall": "npm run webpack:prod",
     "webpack:prod": "webpack --config webpack.config.prod.js",
     "start": "gulp serve"
   },
@@ -48,7 +48,6 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.1",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.0.14",
-    "yarn": "^1.5.1"
+    "webpack-cli": "^2.0.14"
   }
 }

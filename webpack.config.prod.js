@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-var serverConfig = {
+const serverConfig = {
   target: 'node',
   context: path.resolve(__dirname, 'src/server'),
   node: {
@@ -32,7 +32,7 @@ var serverConfig = {
   }
 };
 
-var clientConfig = {
+const clientConfig = {
   context: path.resolve(__dirname, 'src/client'),
   entry: {
     display: './display.js',
