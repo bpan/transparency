@@ -8,9 +8,6 @@ const serverConfig = {
     __dirname: false
   },
   entry: ['babel-polyfill', './server.js'],
-  // externals: [
-  //   /node_modules/
-  // ],
   mode: 'development',
   output: {
     filename: 'server.bundle.js',

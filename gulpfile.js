@@ -58,7 +58,7 @@ const buildAndStartDevServer = gulp.series([
       watch: buildDest + 'server',
       ext: 'js',
       env: {
-        'PORT': '3000',
+        'PORT': '5000',
         'DATABASE_URL': 'postgres://localhost/postgres'
       }
     });
