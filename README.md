@@ -9,9 +9,11 @@ https://transparency-sing.herokuapp.com/
 Tools needed:
 
 * https://postgresapp.com/
+  * Create a database called 'postgres'
+  * Add the schema below
 * brew install node
 * npm install -g npm
-* npm install -g gulp
+* npm install -g gulp-cli
 
 After cloning the repository:
 
