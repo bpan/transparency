@@ -24,7 +24,7 @@ https://transparency-sing.herokuapp.com/
 
 ### Development server
 
-To build and launch a development server (with automatic reload):
+To build and launch a development server (with automatic server reload):
 
 * npm install
 * gulp serve
@@ -48,7 +48,7 @@ song
 Merges to master on GitHub are automatically tested and deployed to Heroku. Download the Heroku CLI here:
 https://devcenter.heroku.com/articles/heroku-cli
 
-To build and launch a production server locally:
+To test the deployment, you can build and launch a production server locally:
 
 * npm install
 * heroku local
