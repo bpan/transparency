@@ -133,7 +133,28 @@ function Controller() {
           </div>
         </div>
         <div class="control-panel">
-          Foo
+          <div class="row">
+            <div class="col">
+              <div>
+                Previous verse
+                <button type="button" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></button>
+              </div>
+              <div>Previous song</div>
+            </div>
+            <div class="col">
+              <div>Next verse</div>
+              <div>Next song</div>
+            </div>
+            <div class="col">
+              <div>Go to first verse</div>
+            </div>
+            <div class="col">
+              <div>Fade to black (B)</div>
+            </div>
+            <div class="col">
+              Clear (C)
+            </div>
+          </div>
         </div>
       </div>
     </div>

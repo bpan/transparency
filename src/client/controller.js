@@ -2,7 +2,6 @@ import * as $ from 'jquery'
 import React from 'react'
 import { render } from 'react-dom';
 import Controller from './components/Controller.jsx';
-import './scss/reset.scss'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'font-awesome/css/font-awesome.css'

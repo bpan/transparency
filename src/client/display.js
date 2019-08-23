@@ -1,5 +1,4 @@
 import * as $ from 'jquery'
-import './scss/reset.scss'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './scss/display.scss'
