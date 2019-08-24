@@ -39,9 +39,7 @@ gulp.task('build:html', function () {
     .pipe(gulp.dest(buildDest));
 });
 
-// Production build
 gulp.task('build', gulp.parallel(['build:webpack', 'build:html']));
-
 
 gulp.task('set:dev', function (done) {
   webpackConfig = webpackConfigLocations.dev;

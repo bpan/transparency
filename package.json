@@ -4,7 +4,7 @@
   "description": "",
   "engines": {
     "node": "8.16.1",
-    "npm": "6.4.1"
+    "npm": "6.11.2"
   },
   "scripts": {
     "test": "echo \"No tests yet\"",
@@ -22,7 +22,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "pg": "^7.4.0",
-    "pg-native": "^2.2.0",
+    "pg-native": "^3.0.0",
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
     "react-autocomplete": "^1.8.1",
@@ -38,7 +38,7 @@
     "clean-webpack-plugin": "^0.1.18",
     "css-loader": "^0.28.9",
     "del": "^3.0.0",
-    "file-loader": "^1.1.9",
+    "file-loader": "^1.1.11",
     "gulp": "^4.0.0",
     "gulp-filter": "^5.0.1",
     "gulp-nodemon": "^2.4.2",
