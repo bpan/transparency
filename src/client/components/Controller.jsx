@@ -22,12 +22,12 @@ function Controller() {
             <Autocomplete
               getItemValue={(item) => item.label}
               items={[
-                { label: 'apple' },
-                { label: 'banana' },
-                { label: 'pear' }
+                {label: 'apple'},
+                {label: 'banana'},
+                {label: 'pear'}
               ]}
               renderItem={(item, isHighlighted) =>
-                <div style={{ background: isHighlighted ? 'lightgray' : 'white' }}>
+                <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
                   {item.label}
                 </div>
               }
@@ -102,33 +102,33 @@ function Controller() {
           <div id="top" class="verse current">
             <div class="verse-number">1</div>
             <div class="verse-text">
-              In the secret, in the quiet place.<br />
-              In the stillness You are there.<br />
-              In the secret, in the quiet hour<br />
-              I wait, only for You.<br />
-              Cause I want to know You more.<br />
+              In the secret, in the quiet place.<br/>
+              In the stillness You are there.<br/>
+              In the secret, in the quiet hour<br/>
+              I wait, only for You.<br/>
+              Cause I want to know You more.<br/>
             </div>
           </div>
           <div class="verse">
             <div class="verse-number">2</div>
             <div class="verse-text">
-              I want to know You,<br />
-              I want to hear Your voice.<br />
-              I want to know You more.<br />
-              I want to touch You.<br />
-              I want to see Your face.<br />
-              I want to know You more.<br />
+              I want to know You,<br/>
+              I want to hear Your voice.<br/>
+              I want to know You more.<br/>
+              I want to touch You.<br/>
+              I want to see Your face.<br/>
+              I want to know You more.<br/>
             </div>
           </div>
           <div class="verse">
             <div class="verse-number">3</div>
             <div class="verse-text">
-              I am reaching, for the highest goal,<br />
-              That I might receive the prize.<br />
-              Pressing onward,<br />
-              Pushing every hindrance aside<br />
-              Out of my way.<br />
-              Cause I want to know You more.<br />
+              I am reaching, for the highest goal,<br/>
+              That I might receive the prize.<br/>
+              Pressing onward,<br/>
+              Pushing every hindrance aside<br/>
+              Out of my way.<br/>
+              Cause I want to know You more.<br/>
             </div>
           </div>
         </div>
