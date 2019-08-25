@@ -34,7 +34,7 @@ const serverConfig = {
 const clientConfig = {
   context: path.resolve(__dirname, 'src/client'),
   devtool: 'inline-source-map',
-    entry: {
+  entry: {
     display: './display.js',
     controller: './controller.js'
   },
@@ -74,7 +74,7 @@ const clientConfig = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
@@ -87,7 +87,7 @@ const clientConfig = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
