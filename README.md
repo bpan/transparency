@@ -48,7 +48,7 @@ song
 Merges to master on GitHub are automatically tested and deployed to Heroku. Download the Heroku CLI here:
 https://devcenter.heroku.com/articles/heroku-cli
 
-To test the deployment, you can build and launch a production server locally:
+To test the current deployment, you can build and launch a production server locally:
 
 * npm install
 * heroku local
