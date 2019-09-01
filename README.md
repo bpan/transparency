@@ -43,12 +43,20 @@ song
 * songwriters
 * artists
 
-### Heroku deployment
+### Production deployment
 
 Merges to master on GitHub are automatically tested and deployed to Heroku. Download the Heroku CLI here:
 https://devcenter.heroku.com/articles/heroku-cli
 
-To test the current deployment, you can build and launch a production server locally:
+To test the current Heroku deployment, you can build and launch a production server locally:
 
 * npm install
 * heroku local
+
+To build and run your local code in production mode:
+
+* gulp clean
+* gulp build
+* PORT=5000 DATABASE_URL="postgres://localhost/postgres" node dist/server/server.bundle.js
+
+(Export environment variables to the production start script command)

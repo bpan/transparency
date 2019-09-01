@@ -4,6 +4,7 @@ $song-background-color: #818594;
 $design-background-color: #99d;
 $song-title-color: #ccd3ef;
 $verse-number-color: #99a;
+$primary-button-color: #3E4890;
 
 html {
   height: 100%;
@@ -146,5 +147,28 @@ body {
     height: 110px;
     width: 100%;
     background-color: #222326;
+    font-size: 12px;
+
+    .btn {
+      margin: 10px;
+      height: 40px;
+      width: 40px;
+    }
+
+    .justify-content-end .btn {
+      margin-right: 3px;
+      margin-left: 5px;
+    }
+
+    .justify-content-start .btn {
+      margin-right: 5px;
+      margin-left: 3px;
+    }
+
+    .alert.primary {
+      color: $white-text;
+      background-color: $primary-button-color;
+      border-color: $primary-button-color;
+    }
   }
 }
