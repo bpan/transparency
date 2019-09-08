@@ -3,7 +3,7 @@
 # Transparency
 Song lyric presentation program
 
-# Try it out
+# Current Deployment
 https://transparency-sing.herokuapp.com/
 
 # Project Management

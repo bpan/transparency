@@ -132,36 +132,36 @@ function Controller() {
             </div>
           </div>
         </div>
-        <div class="control-panel row">
-          <div class="col-3">
-            <div class="d-flex flex-row align-items-center justify-content-end">
-              <div>Previous verse</div>
-              <div><button type="button" class="btn btn-light"><i class="fas fa-arrow-left"></i></button></div>
-            </div>
+        <div class="control-panel row align-items-center">
+          <div class="col col-3">
             <div class="d-flex flex-row align-items-center justify-content-end">
               Previous song
               <button type="button" className="btn btn-light">A</button>
             </div>
+            <div className="d-flex flex-row align-items-center justify-content-end">
+              Next song
+              <button type="button" className="btn btn-light">Z</button>
+            </div>
           </div>
-          <div class="col-2">
+          <div class="col col-2">
+            <div className="d-flex flex-row align-items-center justify-content-start">
+              <button type="button" className="btn btn-light"><i className="fas fa-arrow-up"></i></button>
+              Previous verse
+            </div>
             <div class="d-flex flex-row align-items-center justify-content-start">
-              <button type="button" class="btn btn-light"><i class="fas fa-arrow-right"></i></button>
+              <button type="button" className="btn btn-light"><i className="fas fa-arrow-down"></i></button>
               Next verse
             </div>
-            <div class="d-flex flex-row align-items-center justify-content-start">
-              <button type="button" className="btn btn-light">D</button>
-              Next song
-            </div>
           </div>
-          <div class="col-3">
-            <div class="d-flex flex-row align-items-center justify-content-start">
-              <button type="button" className="btn btn-light">W</button>
-              Go to first verse
-            </div>
-          </div>
+          {/*<div class="col col-3">*/}
+          {/*  <div class="d-flex flex-row align-items-center justify-content-start">*/}
+          {/*    <button type="button" className="btn btn-light">W</button>*/}
+          {/*    Go to first verse*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           <div class="col d-flex flex-row align-items-center justify-content-center">
             <div class="alert primary">Fade to black (B)</div>
-            <div>Clear (C)</div>
+            <div id="clear-screen">Clear (C)</div>
           </div>
         </div>
       </div>

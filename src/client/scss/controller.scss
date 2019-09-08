@@ -149,26 +149,35 @@ body {
     background-color: #222326;
     font-size: 12px;
 
+    .col {
+      padding: 0
+    }
+
     .btn {
-      margin: 10px;
+      margin: 5px;
       height: 40px;
       width: 40px;
     }
 
-    .justify-content-end .btn {
-      margin-right: 3px;
-      margin-left: 5px;
-    }
-
-    .justify-content-start .btn {
-      margin-right: 5px;
-      margin-left: 3px;
-    }
+    //.justify-content-end .btn {
+    //  margin-right: 2px;
+    //}
+    //
+    //.justify-content-start .btn {
+    //  margin-left: 2px;
+    //}
 
     .alert.primary {
+      margin: 0;
       color: $white-text;
       background-color: $primary-button-color;
       border-color: $primary-button-color;
+    }
+
+    #clear-screen {
+      margin: 10px;
+      padding: 10px;
+      color: gray;
     }
   }
 }
