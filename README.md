@@ -57,6 +57,5 @@ To build and run your local code in production mode:
 
 * gulp clean
 * gulp build
-* PORT=5000 DATABASE_URL="postgres://localhost/postgres" node dist/server/server.bundle.js
-
+* PORT=5000 DATABASE_URL="postgres://localhost/postgres" node dist/server/server.bundle.js  
 (Export environment variables to the production start script command)
