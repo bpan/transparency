@@ -29,6 +29,11 @@ To build and launch a development server (with automatic server reload):
 * npm install
 * gulp serve
 
+To update package-lock.json:
+
+* rm -rf node_modules package-lock.json
+* npm install
+
 ### Schema
 
 tenant
