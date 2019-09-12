@@ -1,5 +1,27 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
+// import SetlistSong from "./SetlistSong.jsx";
+import './Controller.scss';
+
+
+function SetlistSong(props) {
+
+  return (
+    <div className={`card song`}>
+      <div className={`d-flex flex-row`}>
+        <div className="song-title">
+          {props.title}
+        </div>
+        <div className="reorder-song">
+          <span className={`fa fa-arrows`}/>
+        </div>
+        <div className="remove-song">
+          <span className={`fa fa-trash`}/>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Controller() {
   let value = '';
@@ -39,58 +61,10 @@ function Controller() {
           </div>
           <div class="setlist">
             <div class="heading">Your setlist</div>
-            <div class="card song">
-              <div class="d-flex flex-row">
-                <div class="song-title">
-                  In The Secret
-                </div>
-                <div class="reorder-song">
-                  <span class="fa fa-arrows"></span>
-                </div>
-                <div class="remove-song">
-                  <span class="fa fa-trash"></span>
-                </div>
-              </div>
-            </div>
-            <div class="card song">
-              <div class="d-flex flex-row">
-                <div class="song-title">
-                  God of Wonders
-                </div>
-                <div class="reorder-song">
-                  <span class="fa fa-arrows"></span>
-                </div>
-                <div class="remove-song">
-                  <span class="fa fa-trash"></span>
-                </div>
-              </div>
-            </div>
-            <div class="card song">
-              <div class="d-flex flex-row">
-                <div class="song-title">
-                  Father of Lights
-                </div>
-                <div class="reorder-song">
-                  <span class="fa fa-arrows"></span>
-                </div>
-                <div class="remove-song">
-                  <span class="fa fa-trash"></span>
-                </div>
-              </div>
-            </div>
-            <div class="card song">
-              <div class="d-flex flex-row">
-                <div class="song-title">
-                  Jesus Lover of My Soul (It's All About You)
-                </div>
-                <div class="reorder-song">
-                  <span class="fa fa-arrows"></span>
-                </div>
-                <div class="remove-song">
-                  <span class="fa fa-trash"></span>
-                </div>
-              </div>
-            </div>
+            <SetlistSong title="In The Secret" />
+            <SetlistSong title="God of Wonders" />
+            <SetlistSong title="Father of Lights" />
+            <SetlistSong title="Jesus Lover of My Soul (It's All About You)" />
           </div>
         </div>
         <div class="design-content">

@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 import Controller from './components/Controller.jsx';
-import './scss/controller.scss'
 
 render(<Controller/>, document.getElementById('app'));
 
