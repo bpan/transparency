@@ -1,30 +1,17 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
-// import SetlistSong from "./SetlistSong.jsx";
-import './Controller.scss';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import SetlistSong from "./setlistSong.jsx";
 
+import './controller.scss';
 
-function SetlistSong(props) {
-
-  return (
-    <div className={`card song`}>
-      <div className={`d-flex flex-row`}>
-        <div className="song-title">
-          {props.title}
-        </div>
-        <div className="reorder-song">
-          <span className={`fa fa-arrows`}/>
-        </div>
-        <div className="remove-song">
-          <span className={`fa fa-trash`}/>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function Controller() {
   let value = '';
+  let setlist = ['In The Secret', 'God of Wonders', 'Father of Lights', 'Jesus Lover of My Soul (It\'s All About You)'];
+
+  const onDragEnd = () => {
+  };
 
   return (
     <div class="controller d-flex flex-row">
@@ -61,10 +48,62 @@ function Controller() {
           </div>
           <div class="setlist">
             <div class="heading">Your setlist</div>
-            <SetlistSong title="In The Secret" />
-            <SetlistSong title="God of Wonders" />
-            <SetlistSong title="Father of Lights" />
-            <SetlistSong title="Jesus Lover of My Soul (It's All About You)" />
+            <DragDropContext onDragEnd="onDragEnd">
+              <Droppable droppableId="setlist-droppable">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
+                    {...provided.droppableProps}
+                  >
+                    <Draggable draggableId="0" index={0}>
+                      {(draggableProvided, draggableSnapshot) => (
+                        <div
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <SetlistSong title="In The Secret" />
+                        </div>
+                      )}
+                    </Draggable>
+                    <Draggable draggableId="1" index={1}>
+                      {(draggableProvided, draggableSnapshot) => (
+                        <div
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <SetlistSong title="God of Wonders" />
+                        </div>
+                      )}
+                    </Draggable>
+                    <Draggable draggableId="2" index={2}>
+                      {(draggableProvided, draggableSnapshot) => (
+                        <div
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <SetlistSong title="Father of Lights" />
+                        </div>
+                      )}
+                    </Draggable>
+                    <Draggable draggableId="3" index={3}>
+                      {(draggableProvided, draggableSnapshot) => (
+                        <div
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <SetlistSong title="Jesus Lover of My Soul (It's All About You)" />
+                        </div>
+                      )}
+                    </Draggable>
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
           </div>
         </div>
         <div class="design-content">
