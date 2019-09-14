@@ -9,7 +9,7 @@ function SetlistSong(props) {
           {props.title}
         </div>
         <div className="reorder-song">
-          <span className={`fa fa-arrows`}/>
+          <span className={`fa fa-arrows-alt-v`}/>
         </div>
         <div className="remove-song">
           <span className={`fa fa-trash`}/>

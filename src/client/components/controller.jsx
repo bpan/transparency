@@ -53,7 +53,7 @@ function Controller() {
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
-                    style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey' }}
+                    style={{ borderRadius: '.25rem', backgroundColor: snapshot.isDraggingOver ? 'rgba(0,0,0,0.3)' : 'inherit' }}
                     {...provided.droppableProps}
                   >
                     <Draggable draggableId="0" index={0}>
