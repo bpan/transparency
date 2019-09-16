@@ -36,11 +36,11 @@ $().ready(function () {
   }, 1500);
 });
 
-$(document).click(function (e) {
-  $('body').css('cursor', 'wait');
-  popWindow("controller.html");
-});
+// $(document).click(function (e) {
+//   $('body').css('cursor', 'wait');
+//   popWindow("index.html");
+// });
 // document.addEventListener("DOMContentLoaded", function(event) {
-// element.addEventListener('click', function() { popWindow("controller.html") }, false);
+// element.addEventListener('click', function() { popWindow("index.html") }, false);
 // });
 

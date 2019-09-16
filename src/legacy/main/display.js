@@ -31,8 +31,8 @@ $().ready(function() {
 	}, 1500);
 });
 
-$().click(function(e) {
-	$('body').css('cursor', 'wait');
-	popWindow("controller.html");
-});
+// $().click(function(e) {
+// 	$('body').css('cursor', 'wait');
+// 	popWindow("index.html");
+// });
 

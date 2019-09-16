@@ -56,50 +56,19 @@ function Controller() {
                     style={{ borderRadius: '.25rem', backgroundColor: snapshot.isDraggingOver ? 'rgba(0,0,0,0.3)' : 'inherit' }}
                     {...provided.droppableProps}
                   >
-                    <Draggable draggableId="0" index={0}>
-                      {(draggableProvided, draggableSnapshot) => (
-                        <div
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                          {...draggableProvided.dragHandleProps}
-                        >
-                          <SetlistSong title="In The Secret" />
-                        </div>
-                      )}
-                    </Draggable>
-                    <Draggable draggableId="1" index={1}>
-                      {(draggableProvided, draggableSnapshot) => (
-                        <div
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                          {...draggableProvided.dragHandleProps}
-                        >
-                          <SetlistSong title="God of Wonders" />
-                        </div>
-                      )}
-                    </Draggable>
-                    <Draggable draggableId="2" index={2}>
-                      {(draggableProvided, draggableSnapshot) => (
-                        <div
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                          {...draggableProvided.dragHandleProps}
-                        >
-                          <SetlistSong title="Father of Lights" />
-                        </div>
-                      )}
-                    </Draggable>
-                    <Draggable draggableId="3" index={3}>
-                      {(draggableProvided, draggableSnapshot) => (
-                        <div
-                          ref={draggableProvided.innerRef}
-                          {...draggableProvided.draggableProps}
-                          {...draggableProvided.dragHandleProps}
-                        >
-                          <SetlistSong title="Jesus Lover of My Soul (It's All About You)" />
-                        </div>
-                      )}
-                    </Draggable>
+                    {setlist.map((song, index) =>
+                      <Draggable draggableId={index} index={index}>
+                        {(draggableProvided, draggableSnapshot) => (
+                          <div
+                            ref={draggableProvided.innerRef}
+                            {...draggableProvided.draggableProps}
+                            {...draggableProvided.dragHandleProps}
+                          >
+                            <SetlistSong title={song} />
+                          </div>
+                        )}
+                      </Draggable>
+                    )}
                   </div>
                 )}
               </Droppable>
