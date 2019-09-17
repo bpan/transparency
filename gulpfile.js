@@ -26,8 +26,7 @@ gulp.task('build:webpack', function (done) {
     }
 
     if (stats.hasErrors()) {
-      console.error(`Error: webpack`);
-      throw new Error(`Error: webpack`);
+      throw new Error(stats.toString("errors-only"));
     }
 
     done();

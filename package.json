@@ -24,7 +24,7 @@
     "pg": "^7.4.0",
     "pg-native": "^3.0.0",
     "popper.js": "^1.12.9",
-    "react": "^16.2.0",
+    "react": "^16.9.0",
     "react-autocomplete": "^1.8.1",
     "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.2.0"

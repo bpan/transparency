@@ -27,6 +27,7 @@ https://transparency-sing.herokuapp.com/
 To build and launch a development server (with automatic server reload):
 
 * npm install
+* gulp clean
 * gulp serve
 
 To update package-lock.json:
