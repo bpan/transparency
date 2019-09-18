@@ -11,7 +11,7 @@ function SetlistSong(props) {
         <div className="reorder-song">
           <span className={`fa fa-arrows-alt-v`}/>
         </div>
-        <div className="remove-song">
+        <div className="remove-song" onClick={() => { props.deleteSong(); }}>
           <span className={`fa fa-trash`}/>
         </div>
       </div>

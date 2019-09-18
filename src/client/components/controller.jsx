@@ -20,7 +20,18 @@ class Controller extends React.Component {
     this.state = {
       setlist: ['In The Secret', 'God of Wonders', 'Father of Lights', 'Jesus Lover of My Soul (It\'s All About You)']
     };
+    this.deleteSongAt = this.deleteSongAt.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  deleteSongAt(index) {
+    return () => {
+      const setlist = Array.from(this.state.setlist);
+      setlist.splice(index, 1);
+      this.setState({
+        setlist
+      });
+    };
   }
 
   onDragEnd(result) {
@@ -36,7 +47,7 @@ class Controller extends React.Component {
     );
 
     this.setState({
-      setlist,
+      setlist
     });
   }
 
@@ -96,7 +107,7 @@ class Controller extends React.Component {
                               {...draggableProvided.draggableProps}
                               {...draggableProvided.dragHandleProps}
                             >
-                              <SetlistSong title={song}/>
+                              <SetlistSong title={song} deleteSong={this.deleteSongAt(index)}/>
                             </div>
                           )}
                         </Draggable>
