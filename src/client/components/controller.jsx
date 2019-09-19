@@ -1,9 +1,10 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import SetlistSong from "./setlistSong.jsx";
 
 import './controller.scss';
+import MonitorVerse from './monitorVerse.jsx';
+import SetlistSong from './setlistSong.jsx';
 
 
 const reorder = (list, startIndex, endIndex) => {
@@ -18,7 +19,27 @@ class Controller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      setlist: ['In The Secret', 'God of Wonders', 'Father of Lights', 'Jesus Lover of My Soul (It\'s All About You)']
+      setlist: [
+        {
+          title: 'In The Secret',
+          verses: [
+            'In the secret, in the quiet place.\nIn the stillness You are there.\nIn the secret, in the quiet hour\nI wait, only for You.\nCause I want to know You more.',
+            'I want to know You,\nI want to hear Your voice.\nI want to know You more.\nI want to touch You.\nI want to see Your face.\nI want to know You more.',
+            'I am reaching, for the highest goal,\nThat I might receive the prize.\nPressing onward,\nPushing every hindrance aside\nOut of my way.\nCause I want to know You more.'
+          ]
+        },
+        {
+          title: 'God of Wonders',
+          verses: null
+        },
+        {
+          title: 'Father of Lights',
+          verses: null
+        },
+        {
+          title: 'Jesus Lover of My Soul (It\'s All About You)',
+          verses: null
+        }]
     };
     this.deleteSongAt = this.deleteSongAt.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
@@ -107,7 +128,7 @@ class Controller extends React.Component {
                               {...draggableProvided.draggableProps}
                               {...draggableProvided.dragHandleProps}
                             >
-                              <SetlistSong title={song} deleteSong={this.deleteSongAt(index)}/>
+                              <SetlistSong title={song.title} deleteSong={this.deleteSongAt(index)}/>
                             </div>
                           )}
                         </Draggable>
@@ -123,39 +144,10 @@ class Controller extends React.Component {
         </div>
         <div class="monitor d-flex flex-column">
           <div class="song">
-            <div class="title">In The Secret</div>
-            <div id="top" class="verse current">
-              <div class="verse-number">1</div>
-              <div class="verse-text">
-                In the secret, in the quiet place.<br/>
-                In the stillness You are there.<br/>
-                In the secret, in the quiet hour<br/>
-                I wait, only for You.<br/>
-                Cause I want to know You more.<br/>
-              </div>
-            </div>
-            <div class="verse">
-              <div class="verse-number">2</div>
-              <div class="verse-text">
-                I want to know You,<br/>
-                I want to hear Your voice.<br/>
-                I want to know You more.<br/>
-                I want to touch You.<br/>
-                I want to see Your face.<br/>
-                I want to know You more.<br/>
-              </div>
-            </div>
-            <div class="verse">
-              <div class="verse-number">3</div>
-              <div class="verse-text">
-                I am reaching, for the highest goal,<br/>
-                That I might receive the prize.<br/>
-                Pressing onward,<br/>
-                Pushing every hindrance aside<br/>
-                Out of my way.<br/>
-                Cause I want to know You more.<br/>
-              </div>
-            </div>
+            <div class="title">{this.state.setlist[0].title}</div>
+            {this.state.setlist[0].verses.map((verse, index) =>
+              <MonitorVerse verseNumber={index + 1} verseText={verse}/>
+            )}
           </div>
           <div class="control-panel row align-items-center">
             <div class="col col-3">
