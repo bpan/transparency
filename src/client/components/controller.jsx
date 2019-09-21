@@ -219,7 +219,9 @@ class Controller extends React.Component {
           <div className="song">
             <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
             {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
-              <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
+              <div onClick={() => this.jumpToVerse(index)}>
+                <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
+              </div>
             )}
           </div>
           <div className="control-panel row align-items-center">
