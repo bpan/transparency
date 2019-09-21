@@ -33,15 +33,29 @@ class Controller extends React.Component {
         },
         {
           title: 'God of Wonders',
-          verses: []
+          verses: [
+            'Lord of all creation\nOf water, earth and sky\nHeavens are Your tabernacle\nGlory to the Lord on high.',
+            'God of wonders beyond our galaxy\nYou are holy, holy.\nThe universe declares Your majesty\nYou are holy, holy.\nLord of heaven and earth. (echo)',
+            'Early in the morning\nI will celebrate the light.\nWhen I stumble in the darkness\nI will call You name by night.',
+            'Hallelujah to the Lord of heaven\nand earth.'
+          ]
         },
         {
           title: 'Father of Lights',
-          verses: []
+          verses: [
+            'Father of lights,\nYou delight in Your children\nFather of lights,\nYou delight in Your children\n',
+            'Every good and perfect gift comes from You\nEvery good and perfect gift comes from You\nEvery good and perfect gift comes from You\nFather of Lights.',
+            'Father of lights, You never change,\nYou have no turning.\nFather of lights, You never change,\nYou have no turning.'
+          ]
         },
         {
           title: 'Jesus Lover of My Soul (It\'s All About You)',
-          verses: []
+          verses: [
+            'It’s all about You, Jesus.\nAnd all this is for You,\nFor Your glory and Your fame.',
+            'It’s not about me;\nAs if You should do things my way.\nYou alone are God,\nAnd I surrender to Your ways.',
+            'Jesus, lover of my soul\nAll consuming fire is in Your gaze.\nJesus, I want You to know\nI will follow You all my days.',
+            'For no one else in history is like you\nAnd history itself belongs to You\nAlpha and Omega,\nYou have loved me,\nAnd I will share eternity with You'
+          ]
         }]
     };
     this.deleteSongAt = this.deleteSongAt.bind(this);
@@ -74,6 +88,15 @@ class Controller extends React.Component {
     this.setState({setlist});
   }
 
+  previousSong() {
+    this.setState({currentSong: this.state.currentSong > 1 ? this.state.currentSong - 1 : 0});
+  }
+
+  nextSong() {
+    const setlistEnd = this.state.setlist.length - 1;
+    this.setState({currentSong: this.state.currentSong < setlistEnd - 1 ? this.state.currentSong + 1 : setlistEnd});
+  }
+
   // VERSES
 
   previousVerse() {
@@ -95,7 +118,7 @@ class Controller extends React.Component {
     let value = '';
     return (
       <div className="controller d-flex flex-row">
-        <input type="text" style={{display: 'none', position: 'fixed'}} value={this.state.debugKey}/>
+        <input type="text" readOnly={true} style={{display: 'none', position: 'fixed'}} value={this.state.debugKey}/>
         <div className="workspace d-flex flex-column">
           <div className="tabs d-flex flex-row">
             <div className="tab setlist">
@@ -141,14 +164,15 @@ class Controller extends React.Component {
                       {...provided.droppableProps}
                     >
                       {this.state.setlist.map((song, index) =>
-                        <Draggable key={'droppable-' + index} draggableId={'droppable-' + index} index={index}>
+                        <Draggable key={'droppable-' + index} draggableId={'droppable-' + index} index={index} onClick={() => {
+                          this.setState({currentSong: index })}}>
                           {(draggableProvided, draggableSnapshot) => (
                             <div
                               ref={draggableProvided.innerRef}
                               {...draggableProvided.draggableProps}
                               {...draggableProvided.dragHandleProps}
                             >
-                              <SetlistSong title={song.title} deleteSong={this.deleteSongAt(index)}/>
+                              <SetlistSong currentSong={index === this.state.currentSong} title={song.title} deleteSong={this.deleteSongAt(index)}/>
                             </div>
                           )}
                         </Draggable>
@@ -213,9 +237,11 @@ class Controller extends React.Component {
         /* Set Control */
         case 'a':
         case 'A':
+          this.previousSong();
           break;
         case 'z':
         case 'Z':
+          this.nextSong()
           break;
         /* Song Control */
         case 'ArrowLeft':

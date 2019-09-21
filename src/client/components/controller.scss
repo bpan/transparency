@@ -81,6 +81,10 @@ body {
         line-height: 20px;
         font-size: 12px;
         color: #777;
+
+        &.current {
+          background-color: #c8c8c8;
+        }
         
         .song-title {
           flex: 1;
@@ -113,6 +117,8 @@ body {
   
   .song {
     flex: 1;
+    padding-bottom: 20px;
+    min-height: 500px;
   
     .title {
       margin-bottom: 20px;
