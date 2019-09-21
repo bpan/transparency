@@ -59,7 +59,7 @@ class Controller extends React.Component {
         }]
     };
     this.deleteSongAt = this.deleteSongAt.bind(this);
-    this.onDragEnd = this.onDragEnd.bind(this);
+    this.songDragEnd = this.songDragEnd.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
   }
 
@@ -69,13 +69,14 @@ class Controller extends React.Component {
     return () => {
       const setlist = [...this.state.setlist];
       setlist.splice(index, 1);
-      this.setState({setlist});
+      const currentVerse = index === this.state.currentSong ? 0 : this.state.currentVerse;
+      this.setState({setlist, currentVerse});
     };
   }
 
-  onDragEnd(result) {
-    // dropped outside the list
-    if (!result.destination) {
+  songDragEnd(result) {
+    // Dropped outside the list or no change
+    if (!result.destination || result.source.index === result.destination.index) {
       return;
     }
 
@@ -85,16 +86,44 @@ class Controller extends React.Component {
       result.destination.index
     );
 
-    this.setState({setlist});
+    let currentSong = this.state.currentSong;
+    if (result.source.index === currentSong) {
+      currentSong = result.destination.index;
+    } else if (result.source.index < currentSong && result.destination.index >= currentSong) {
+      currentSong -= 1;
+    } else if (result.source.index > currentSong && result.destination.index <= currentSong) {
+      currentSong += 1;
+    }
+
+    this.setState({setlist, currentSong});
   }
 
   previousSong() {
-    this.setState({currentSong: this.state.currentSong > 1 ? this.state.currentSong - 1 : 0});
+    if (this.state.currentSong === 0) {
+      return;
+    }
+    this.setState({
+      currentSong: this.state.currentSong - 1,
+      currentVerse: 0
+    });
   }
 
   nextSong() {
     const setlistEnd = this.state.setlist.length - 1;
-    this.setState({currentSong: this.state.currentSong < setlistEnd - 1 ? this.state.currentSong + 1 : setlistEnd});
+    if (this.state.currentSong === setlistEnd) {
+      return;
+    }
+    this.setState({
+      currentSong: this.state.currentSong + 1,
+      currentVerse: 0
+    });
+  }
+
+  jumpToSong(index) {
+    if (this.state.currentSong === index) {
+      return;
+    }
+    this.setState({currentSong: index, currentVerse: 0});
   }
 
   // VERSES
@@ -152,7 +181,7 @@ class Controller extends React.Component {
             </div>
             <div className="setlist">
               <div className="heading">Your setlist</div>
-              <DragDropContext onDragEnd={this.onDragEnd}>
+              <DragDropContext onDragEnd={this.songDragEnd}>
                 <Droppable droppableId="setlist-droppable">
                   {(provided, snapshot) => (
                     <div
@@ -170,7 +199,7 @@ class Controller extends React.Component {
                               ref={draggableProvided.innerRef}
                               {...draggableProvided.draggableProps}
                               {...draggableProvided.dragHandleProps}
-                              onClick={() => {this.setState({currentSong: index})}}
+                              onClick={() => {this.jumpToSong(index)}}
                             >
                               <SetlistSong currentSong={index === this.state.currentSong} title={song.title} deleteSong={this.deleteSongAt(index)}/>
                             </div>
