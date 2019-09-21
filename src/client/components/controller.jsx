@@ -1,6 +1,6 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 import './controller.scss';
 import MonitorVerse from './monitorVerse.jsx';
@@ -77,31 +77,37 @@ class Controller extends React.Component {
   // VERSES
 
   previousVerse() {
-    this.setState({currentVerse: this.state.currentVerse > 1 ? this.state.currentVerse - 1 : 0})
+    this.setState({currentVerse: this.state.currentVerse > 1 ? this.state.currentVerse - 1 : 0});
   }
 
   nextVerse() {
     const songEnd = this.state.setlist[this.state.currentSong].verses.length - 1;
-    this.setState({currentVerse: this.state.currentVerse < songEnd - 1 ? this.state.currentVerse + 1 : songEnd})
+    this.setState({currentVerse: this.state.currentVerse < songEnd - 1 ? this.state.currentVerse + 1 : songEnd});
+  }
+
+  jumpToVerse(newVerse) {
+    if (newVerse < this.state.setlist[this.state.currentSong].verses.length) {
+      this.setState({currentVerse: newVerse});
+    }
   }
 
   render() {
     let value = '';
     return (
-      <div class="controller d-flex flex-row">
-        <input type="text" style={{display: 'none', position: 'fixed'}} value={this.state.debugKey} />
-        <div class="workspace d-flex flex-column">
-          <div class="tabs d-flex flex-row">
-            <div class="tab setlist">
+      <div className="controller d-flex flex-row">
+        <input type="text" style={{display: 'none', position: 'fixed'}} value={this.state.debugKey}/>
+        <div className="workspace d-flex flex-column">
+          <div className="tabs d-flex flex-row">
+            <div className="tab setlist">
               Songs
             </div>
-            <div class="tab design">
+            <div className="tab design">
               Design
             </div>
           </div>
-          <div class="setlist-content">
-            <div class="add-song">
-              <div class="heading">Add a song</div>
+          <div className="setlist-content">
+            <div className="add-song">
+              <div className="heading">Add a song</div>
               {/* <input class="form-control" type="text" id="add-a-song" placeholder="Search song title&hellip;"> */}
               <Autocomplete
                 getItemValue={(item) => item.label}
@@ -121,8 +127,8 @@ class Controller extends React.Component {
               />
               <a>Browse the library</a>
             </div>
-            <div class="setlist">
-              <div class="heading">Your setlist</div>
+            <div className="setlist">
+              <div className="heading">Your setlist</div>
               <DragDropContext onDragEnd={this.onDragEnd}>
                 <Droppable droppableId="setlist-droppable">
                   {(provided, snapshot) => (
@@ -153,19 +159,19 @@ class Controller extends React.Component {
               </DragDropContext>
             </div>
           </div>
-          <div class="design-content">
+          <div className="design-content">
           </div>
         </div>
-        <div class="monitor d-flex flex-column">
-          <div class="song">
-            <div class="title">{this.state.setlist[this.state.currentSong].title}</div>
+        <div className="monitor d-flex flex-column">
+          <div className="song">
+            <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
             {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
               <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
             )}
           </div>
-          <div class="control-panel row align-items-center">
-            <div class="col col-3">
-              <div class="d-flex flex-row align-items-center justify-content-end">
+          <div className="control-panel row align-items-center">
+            <div className="col col-3">
+              <div className="d-flex flex-row align-items-center justify-content-end">
                 Previous song
                 <button type="button" className="btn btn-light">A</button>
               </div>
@@ -174,24 +180,24 @@ class Controller extends React.Component {
                 <button type="button" className="btn btn-light">Z</button>
               </div>
             </div>
-            <div class="col col-2">
-              <div className="d-flex flex-row align-items-center justify-content-start" onClick={() => { this.previousVerse(); }}>
-                <button type="button" className="btn btn-light"><i className="fas fa-arrow-up"></i></button>
+            <div className="col col-2">
+              <div className="d-flex flex-row align-items-center justify-content-start" onClick={() => {this.previousVerse()}}>
+                <button type="button" className="btn btn-light"><i className="fas fa-arrow-up"/></button>
                 Previous verse
               </div>
-              <div class="d-flex flex-row align-items-center justify-content-start" onClick={() => { this.nextVerse(); }}>
-                <button type="button" className="btn btn-light"><i className="fas fa-arrow-down"></i></button>
+              <div className="d-flex flex-row align-items-center justify-content-start" onClick={() => {this.nextVerse()}}>
+                <button type="button" className="btn btn-light"><i className="fas fa-arrow-down"/></button>
                 Next verse
               </div>
             </div>
-            {/*<div class="col col-3">*/}
+            {/*<div className="col col-3">*/}
             {/*  <div class="d-flex flex-row align-items-center justify-content-start">*/}
             {/*    <button type="button" className="btn btn-light">W</button>*/}
             {/*    Go to first verse*/}
             {/*  </div>*/}
             {/*</div>*/}
-            <div class="col d-flex flex-row align-items-center justify-content-center">
-              <div class="alert primary">Fade to black (B)</div>
+            <div className="col d-flex flex-row align-items-center justify-content-center">
+              <div className="alert primary">Fade to black (B)</div>
               <div id="clear-screen">Clear (C)</div>
             </div>
           </div>
@@ -203,22 +209,15 @@ class Controller extends React.Component {
   keyHandler(e) {
     this.setState({debugKey: e.key});
     if (e.target.tagName.toLowerCase() !== 'input') {
-      switch(e.key) {
+      switch (e.key) {
         /* Set Control */
-        case 219:	// [
-          // e.preventDefault();
-          // t.cont.setPrev();
+        case 'a':
+        case 'A':
           break;
-        case 221:	// ]
-          // e.preventDefault();
-          // t.cont.setNext();
+        case 'z':
+        case 'Z':
           break;
         /* Song Control */
-        case 'Esc':
-        case 'Escape':
-          this.setState({currentVerse: 0});
-          break;
-        case 'Backspace':
         case 'ArrowLeft':
         case 'ArrowUp':
           e.preventDefault();
@@ -230,41 +229,33 @@ class Controller extends React.Component {
           e.preventDefault();
           this.nextVerse();
           break;
-        case 49:
-        case 50:
-        case 51:
-        case 52:
-        case 53:
-        case 54:
-        case 55:
-        case 56:
-        case 57:
-          // t.cont.scrollJump(e.key-48-1);
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          this.jumpToVerse(parseInt(e.key) - 1);
           break;
         /* Style Control */
-        case 67:	// C
-          // t.cont.clearSong();
+        case 'b':
+        case 'B':
           break;
-        case 66:	// B
-          // t.cont.blackScreen();
-          break;
-        case 76:	// L
-          //t.style.toggleText();
-          break;
-        case 75:	// K
-          //t.style.toggleBackground();
-          break;
-        default:
+        case 'c':
+        case 'C':
           break;
       }
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     document.addEventListener('keydown', this.keyHandler);
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     document.removeEventListener('keydown', this.keyHandler);
   }
 }
