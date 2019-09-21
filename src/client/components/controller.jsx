@@ -108,9 +108,9 @@ class Controller extends React.Component {
     this.setState({currentVerse: this.state.currentVerse < songEnd - 1 ? this.state.currentVerse + 1 : songEnd});
   }
 
-  jumpToVerse(newVerse) {
-    if (newVerse < this.state.setlist[this.state.currentSong].verses.length) {
-      this.setState({currentVerse: newVerse});
+  jumpToVerse(index) {
+    if (index < this.state.setlist[this.state.currentSong].verses.length) {
+      this.setState({currentVerse: index});
     }
   }
 
@@ -164,13 +164,13 @@ class Controller extends React.Component {
                       {...provided.droppableProps}
                     >
                       {this.state.setlist.map((song, index) =>
-                        <Draggable key={'droppable-' + index} draggableId={'droppable-' + index} index={index} onClick={() => {
-                          this.setState({currentSong: index })}}>
+                        <Draggable key={'droppable-' + index} draggableId={'droppable-' + index} index={index}>
                           {(draggableProvided, draggableSnapshot) => (
                             <div
                               ref={draggableProvided.innerRef}
                               {...draggableProvided.draggableProps}
                               {...draggableProvided.dragHandleProps}
+                              onClick={() => {this.setState({currentSong: index})}}
                             >
                               <SetlistSong currentSong={index === this.state.currentSong} title={song.title} deleteSong={this.deleteSongAt(index)}/>
                             </div>
@@ -241,7 +241,7 @@ class Controller extends React.Component {
           break;
         case 'z':
         case 'Z':
-          this.nextSong()
+          this.nextSong();
           break;
         /* Song Control */
         case 'ArrowLeft':
