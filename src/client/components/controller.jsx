@@ -1,6 +1,6 @@
 import React from 'react';
 import Autocomplete from 'react-autocomplete';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 
 import './controller.scss';
 import MonitorVerse from './monitorVerse.jsx';
@@ -49,7 +49,7 @@ class Controller extends React.Component {
           ]
         },
         {
-          title: 'Jesus Lover of My Soul (It\'s All About You)',
+          title: 'Jesus Lover of My Soul (It’s All About You)',
           verses: [
             'It’s all about You, Jesus.\nAnd all this is for You,\nFor Your glory and Your fame.',
             'It’s not about me;\nAs if You should do things my way.\nYou alone are God,\nAnd I surrender to Your ways.',
@@ -67,10 +67,21 @@ class Controller extends React.Component {
 
   deleteSongAt(index) {
     return () => {
+      let currentSong = this.state.currentSong;
+      let currentVerse = this.state.currentVerse;
+      if (this.state.setlist.length === 1) {
+        currentSong = null;
+        currentVerse = null;
+      }
+      if (index === this.state.currentSong) {
+        if (this.state.currentSong === this.state.setlist.length - 1) {
+          currentSong = this.state.currentSong - 1;
+        }
+        currentVerse = 0;
+      }
       const setlist = [...this.state.setlist];
       setlist.splice(index, 1);
-      const currentVerse = index === this.state.currentSong ? 0 : this.state.currentVerse;
-      this.setState({setlist, currentVerse});
+      this.setState({currentSong, currentVerse, setlist});
     };
   }
 
@@ -80,12 +91,6 @@ class Controller extends React.Component {
       return;
     }
 
-    const setlist = reorder(
-      this.state.setlist,
-      result.source.index,
-      result.destination.index
-    );
-
     let currentSong = this.state.currentSong;
     if (result.source.index === currentSong) {
       currentSong = result.destination.index;
@@ -94,6 +99,12 @@ class Controller extends React.Component {
     } else if (result.source.index > currentSong && result.destination.index <= currentSong) {
       currentSong += 1;
     }
+
+    const setlist = reorder(
+      this.state.setlist,
+      result.source.index,
+      result.destination.index
+    );
 
     this.setState({setlist, currentSong});
   }
@@ -109,8 +120,7 @@ class Controller extends React.Component {
   }
 
   nextSong() {
-    const setlistEnd = this.state.setlist.length - 1;
-    if (this.state.currentSong === setlistEnd) {
+    if (this.state.currentSong === this.state.setlist.length - 1) {
       return;
     }
     this.setState({
@@ -217,12 +227,19 @@ class Controller extends React.Component {
         </div>
         <div className="monitor d-flex flex-column">
           <div className="song">
-            <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
-            {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
-              <div onClick={() => this.jumpToVerse(index)}>
-                <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
+            {this.state.currentSong !== null && !!this.state.setlist.length
+              ?
+              <div>
+                <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
+                {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
+                  <div onClick={() => this.jumpToVerse(index)}>
+                    <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
+                  </div>
+                )}
               </div>
-            )}
+              :
+              <div className="title">App Name</div>
+            }
           </div>
           <div className="control-panel row align-items-center">
             <div className="col col-3">
