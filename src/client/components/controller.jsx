@@ -74,11 +74,13 @@ class Controller extends React.Component {
         currentVerse = null;
       }
       if (index === this.state.currentSong) {
-        if (this.state.currentSong === this.state.setlist.length - 1) {
-          currentSong = this.state.currentSong - 1;
-        }
         currentVerse = 0;
       }
+      if (this.state.currentSong === this.state.setlist.length - 1) {
+        currentSong = this.state.currentSong - 1;
+        currentVerse = 0;
+      }
+
       const setlist = [...this.state.setlist];
       setlist.splice(index, 1);
       this.setState({currentSong, currentVerse, setlist});
