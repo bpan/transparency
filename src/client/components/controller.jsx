@@ -70,15 +70,21 @@ class Controller extends React.Component {
       let currentSong = this.state.currentSong;
       let currentVerse = this.state.currentVerse;
       if (this.state.setlist.length === 1) {
+        // Deleting last song, nothing more to display
         currentSong = null;
         currentVerse = null;
       }
-      if (index === this.state.currentSong) {
-        currentVerse = 0;
-      }
-      if (this.state.currentSong === this.state.setlist.length - 1) {
+      if (index < this.state.currentSong) {
+        // Deleting an earlier song will change the indexing
         currentSong = this.state.currentSong - 1;
+      }
+      if (index === this.state.currentSong) {
+        // Deleting the current song should switch to the next song...
         currentVerse = 0;
+        if (this.state.currentSong === this.state.setlist.length - 1) {
+          // ...unless it's the end of the setlist, in which case switch to the previous song
+          currentSong = this.state.currentSong - 1;
+        }
       }
 
       const setlist = [...this.state.setlist];
@@ -93,6 +99,7 @@ class Controller extends React.Component {
       return;
     }
 
+    // The monitor and verses won't change, but the currentSong index may need to change with the new setlist ordering
     let currentSong = this.state.currentSong;
     if (result.source.index === currentSong) {
       currentSong = result.destination.index;
@@ -112,23 +119,15 @@ class Controller extends React.Component {
   }
 
   previousSong() {
-    if (this.state.currentSong === 0) {
-      return;
+    if (this.state.currentSong > 0) {
+      this.jumpToSong(this.state.currentSong - 1);
     }
-    this.setState({
-      currentSong: this.state.currentSong - 1,
-      currentVerse: 0
-    });
   }
 
   nextSong() {
-    if (this.state.currentSong === this.state.setlist.length - 1) {
-      return;
+    if (this.state.currentSong < this.state.setlist.length - 1) {
+      this.jumpToSong(this.state.currentSong + 1);
     }
-    this.setState({
-      currentSong: this.state.currentSong + 1,
-      currentVerse: 0
-    });
   }
 
   jumpToSong(index) {
