@@ -14,7 +14,6 @@ import {
   ArrowIcon,
   XIcon,
   css,
-  itemToString,
   getItems,
 } from './autocomplete'
 
@@ -50,31 +49,20 @@ class Controller extends React.Component {
             'Early in the morning\nI will celebrate the light.\nWhen I stumble in the darkness\nI will call You name by night.',
             'Hallelujah to the Lord of heaven\nand earth.'
           ]
-        },
-        {
-          title: 'Father of Lights',
-          verses: [
-            'Father of lights,\nYou delight in Your children\nFather of lights,\nYou delight in Your children\n',
-            'Every good and perfect gift comes from You\nEvery good and perfect gift comes from You\nEvery good and perfect gift comes from You\nFather of Lights.',
-            'Father of lights, You never change,\nYou have no turning.\nFather of lights, You never change,\nYou have no turning.'
-          ]
-        },
-        {
-          title: 'Jesus Lover of My Soul (It’s All About You)',
-          verses: [
-            'It’s all about You, Jesus.\nAnd all this is for You,\nFor Your glory and Your fame.',
-            'It’s not about me;\nAs if You should do things my way.\nYou alone are God,\nAnd I surrender to Your ways.',
-            'Jesus, lover of my soul\nAll consuming fire is in Your gaze.\nJesus, I want You to know\nI will follow You all my days.',
-            'For no one else in history is like you\nAnd history itself belongs to You\nAlpha and Omega,\nYou have loved me,\nAnd I will share eternity with You'
-          ]
         }]
     };
+    this.addSong = this.addSong.bind(this);
     this.deleteSongAt = this.deleteSongAt.bind(this);
     this.songDragEnd = this.songDragEnd.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
   }
 
   // SETLIST
+
+  addSong(song) {
+    const setlist = [...this.state.setlist, song];
+    this.setState({setlist});
+  }
 
   deleteSongAt(index) {
     return () => {
@@ -188,14 +176,12 @@ class Controller extends React.Component {
                 })}
               >
                 <Downshift
-                  onChange={selection =>
-                    alert(
-                      selection
-                        ? `You selected ${itemToString(selection)}`
-                        : 'selection cleared',
-                    )
-                  }
-                  itemToString={itemToString}
+                  onChange={selection => {
+                    if (selection) {
+                      this.addSong(selection);
+                    }
+                  }}
+                  itemToString={() => ('')}
                 >
                   {({
                       getLabelProps,
@@ -225,22 +211,22 @@ class Controller extends React.Component {
                           >
                             <XIcon />
                           </ControllerButton>
-                        ) : ''}
+                        ) : null}
                       </div>
                       <div {...css({position: 'relative'})}>
                         <Menu {...getMenuProps({isOpen})}>
                           {isOpen
-                            ? getItems(inputValue).map((item, index) => (
+                            ? getItems(inputValue).map((song, index) => (
                               <Item
-                                key={item.id}
+                                key={song.id}
                                 {...getItemProps({
-                                  item,
+                                  item: song,
                                   index,
                                   isActive: highlightedIndex === index,
-                                  isSelected: selectedItem === item,
+                                  isSelected: selectedItem === song,
                                 })}
                               >
-                                {itemToString(item)}
+                                {song.title}
                               </Item>
                             ))
                             : null}

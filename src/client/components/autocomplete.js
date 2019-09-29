@@ -3,8 +3,45 @@ import {css as emoCSS} from 'emotion';
 import styled from 'react-emotion';
 import matchSorter from 'match-sorter';
 
-const allItems = [{name: "foo", id: 1}, {name: "bar", id: 2}, {name: "baz", id: 3},];
-
+const allItems = [
+  {
+    id: 1,
+    title: 'In The Secret',
+    verses: [
+      'In the secret, in the quiet place.\nIn the stillness You are there.\nIn the secret, in the quiet hour\nI wait, only for You.\nCause I want to know You more.',
+      'I want to know You,\nI want to hear Your voice.\nI want to know You more.\nI want to touch You.\nI want to see Your face.\nI want to know You more.',
+      'I am reaching, for the highest goal,\nThat I might receive the prize.\nPressing onward,\nPushing every hindrance aside\nOut of my way.\nCause I want to know You more.'
+    ]
+  },
+  {
+    id: 2,
+    title: 'God of Wonders',
+    verses: [
+      'Lord of all creation\nOf water, earth and sky\nHeavens are Your tabernacle\nGlory to the Lord on high.',
+      'God of wonders beyond our galaxy\nYou are holy, holy.\nThe universe declares Your majesty\nYou are holy, holy.\nLord of heaven and earth. (echo)',
+      'Early in the morning\nI will celebrate the light.\nWhen I stumble in the darkness\nI will call You name by night.',
+      'Hallelujah to the Lord of heaven\nand earth.'
+    ]
+  },
+  {
+    id: 3,
+    title: 'Father of Lights',
+    verses: [
+      'Father of lights,\nYou delight in Your children\nFather of lights,\nYou delight in Your children\n',
+      'Every good and perfect gift comes from You\nEvery good and perfect gift comes from You\nEvery good and perfect gift comes from You\nFather of Lights.',
+      'Father of lights, You never change,\nYou have no turning.\nFather of lights, You never change,\nYou have no turning.'
+    ]
+  },
+  {
+    id: 4,
+    title: 'Jesus Lover of My Soul (It’s All About You)',
+    verses: [
+      'It’s all about You, Jesus.\nAnd all this is for You,\nFor Your glory and Your fame.',
+      'It’s not about me;\nAs if You should do things my way.\nYou alone are God,\nAnd I surrender to Your ways.',
+      'Jesus, lover of my soul\nAll consuming fire is in Your gaze.\nJesus, I want You to know\nI will follow You all my days.',
+      'For no one else in history is like you\nAnd history itself belongs to You\nAlpha and Omega,\nYou have loved me,\nAnd I will share eternity with You'
+    ]
+  }];
 
 const css = (...args) => ({className: emoCSS(...args)});
 
@@ -63,7 +100,7 @@ const Input = styled('input')(
     borderRadius: '.30rem',
     transition: 'box-shadow .1s ease,width .1s ease',
     [onAttention]: {
-      borderColor: '#96c8da',
+      borderColor: '#99d',
       boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
     },
   },
@@ -90,6 +127,7 @@ const BaseMenu = styled('ul')(
     padding: 0,
     marginTop: 0,
     position: 'absolute',
+    zIndex: 10,
     backgroundColor: 'white',
     width: '100%',
     maxHeight: '20rem',
@@ -99,7 +137,7 @@ const BaseMenu = styled('ul')(
     transition: 'opacity .1s ease',
     borderRadius: '0 0 .28571429rem .28571429rem',
     boxShadow: '0 2px 3px 0 rgba(34,36,38,.15)',
-    borderColor: '#96c8da',
+    borderColor: '#99d',
     borderTopWidth: '0',
     borderRightWidth: 1,
     borderBottomWidth: 1,
@@ -165,7 +203,7 @@ function XIcon() {
 function getItems(filter) {
   return filter
     ? matchSorter(allItems, filter, {
-      keys: ['name'],
+      keys: ['title', 'verses'],
     })
     : allItems;
 }
@@ -190,8 +228,6 @@ function getItemsAsync(filter, {reject}) {
   return getItems(filter);
 }
 
-const itemToString = i => (i ? i.name : '');
-
 export {
   Menu,
   ControllerButton,
@@ -201,7 +237,6 @@ export {
   XIcon,
   Label,
   css,
-  itemToString,
   getItems,
   getStringItems,
   getItemsAsync,
