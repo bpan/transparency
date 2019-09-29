@@ -1,11 +1,22 @@
 import React from 'react';
-import Autocomplete from 'react-autocomplete';
+import Downshift from 'downshift'
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 
 import './controller.scss';
 import MonitorVerse from './monitorVerse.jsx';
 import SetlistSong from './setlistSong.jsx';
-
+import {
+  Label,
+  Menu,
+  ControllerButton,
+  Input,
+  Item,
+  ArrowIcon,
+  XIcon,
+  css,
+  itemToString,
+  getItems,
+} from './autocomplete'
 
 const reorder = (list, startIndex, endIndex) => {
   const result = [...list];
@@ -170,24 +181,75 @@ class Controller extends React.Component {
           </div>
           <div className="setlist-content">
             <div className="add-song">
-              <div className="heading">Add a song</div>
-              {/* <input class="form-control" type="text" id="add-a-song" placeholder="Search song title&hellip;"> */}
-              <Autocomplete
-                getItemValue={(item) => item.label}
-                items={[
-                  {label: 'apple'},
-                  {label: 'banana'},
-                  {label: 'pear'}
-                ]}
-                renderItem={(item, isHighlighted) =>
-                  <div style={{background: isHighlighted ? 'lightgray' : 'white'}}>
-                    {item.label}
-                  </div>
-                }
-                value={value}
-                onChange={(e) => value = e.target.value}
-                onSelect={(val) => value = val}
-              />
+              <div
+                {...css({
+                  display: 'flex',
+                  flexDirection: 'column',
+                })}
+              >
+                <Downshift
+                  onChange={selection =>
+                    alert(
+                      selection
+                        ? `You selected ${itemToString(selection)}`
+                        : 'selection cleared',
+                    )
+                  }
+                  itemToString={itemToString}
+                >
+                  {({
+                      getLabelProps,
+                      getInputProps,
+                      getToggleButtonProps,
+                      getMenuProps,
+                      getItemProps,
+                      isOpen,
+                      clearSelection,
+                      selectedItem,
+                      inputValue,
+                      highlightedIndex,
+                    }) => (
+                    <div {...css({width: 250, margin: 'auto'})}>
+                      <div className="heading">Add a song</div>
+                      <div {...css({position: 'relative'})}>
+                        <Input
+                          {...getInputProps({
+                            isOpen,
+                            placeholder: 'Search song title or lyric',
+                          })}
+                        />
+                        {selectedItem ? (
+                          <ControllerButton
+                            onClick={clearSelection}
+                            aria-label="clear selection"
+                          >
+                            <XIcon />
+                          </ControllerButton>
+                        ) : ''}
+                      </div>
+                      <div {...css({position: 'relative'})}>
+                        <Menu {...getMenuProps({isOpen})}>
+                          {isOpen
+                            ? getItems(inputValue).map((item, index) => (
+                              <Item
+                                key={item.id}
+                                {...getItemProps({
+                                  item,
+                                  index,
+                                  isActive: highlightedIndex === index,
+                                  isSelected: selectedItem === item,
+                                })}
+                              >
+                                {itemToString(item)}
+                              </Item>
+                            ))
+                            : null}
+                        </Menu>
+                      </div>
+                    </div>
+                  )}
+                </Downshift>
+              </div>
               <a>Browse the library</a>
             </div>
             <div className="setlist">
