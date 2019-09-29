@@ -116,12 +116,6 @@ const Input = styled('input')(
       : null,
 );
 
-const Label = styled('label')({
-  fontWeight: 'bold',
-  display: 'block',
-  marginBottom: 10,
-});
-
 const BaseMenu = styled('ul')(
   {
     padding: 0,
@@ -168,22 +162,6 @@ const ControllerButton = styled('button')({
   alignItems: 'center',
 });
 
-function ArrowIcon({isOpen}) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      preserveAspectRatio="none"
-      width={16}
-      fill="transparent"
-      stroke="#979797"
-      strokeWidth="1.1px"
-      transform={isOpen ? 'rotate(180)' : undefined}
-    >
-      <path d="M1,6 L10,15 L19,6"/>
-    </svg>
-  );
-}
-
 function XIcon() {
   return (
     <svg
@@ -204,28 +182,9 @@ function getItems(filter) {
   return filter
     ? matchSorter(allItems, filter, {
       keys: ['title', 'verses'],
+      threshold: matchSorter.rankings.CONTAINS
     })
     : allItems;
-}
-
-function getStringItems(filter) {
-  return getItems(filter).map(({name}) => name);
-}
-
-function sleep(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
-
-function getItemsAsync(filter, {reject}) {
-  // await sleep(Math.random() * 2000);
-  if (reject) {
-    // this is just so we can have examples that show what happens
-    // when there's a request failure.
-    throw new Error({error: 'request rejected'});
-  }
-  return getItems(filter);
 }
 
 export {
@@ -233,11 +192,7 @@ export {
   ControllerButton,
   Input,
   Item,
-  ArrowIcon,
   XIcon,
-  Label,
   css,
   getItems,
-  getStringItems,
-  getItemsAsync,
 };

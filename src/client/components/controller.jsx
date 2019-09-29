@@ -6,12 +6,10 @@ import './controller.scss';
 import MonitorVerse from './monitorVerse.jsx';
 import SetlistSong from './setlistSong.jsx';
 import {
-  Label,
   Menu,
   ControllerButton,
   Input,
   Item,
-  ArrowIcon,
   XIcon,
   css,
   getItems,
@@ -51,7 +49,6 @@ class Controller extends React.Component {
           ]
         }]
     };
-    this.addSong = this.addSong.bind(this);
     this.deleteSongAt = this.deleteSongAt.bind(this);
     this.songDragEnd = this.songDragEnd.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
@@ -154,7 +151,6 @@ class Controller extends React.Component {
   }
 
   render() {
-    let value = '';
     return (
       <div className="controller d-flex flex-row">
         <input type="text" readOnly={true} style={{display: 'none', position: 'fixed'}} value={this.state.debugKey}/>
@@ -176,7 +172,7 @@ class Controller extends React.Component {
                 })}
               >
                 <Downshift
-                  onChange={selection => {
+                  onSelect={selection => {
                     if (selection) {
                       this.addSong(selection);
                     }
@@ -184,14 +180,11 @@ class Controller extends React.Component {
                   itemToString={() => ('')}
                 >
                   {({
-                      getLabelProps,
                       getInputProps,
-                      getToggleButtonProps,
                       getMenuProps,
                       getItemProps,
                       isOpen,
                       clearSelection,
-                      selectedItem,
                       inputValue,
                       highlightedIndex,
                     }) => (
@@ -204,7 +197,7 @@ class Controller extends React.Component {
                             placeholder: 'Search song title or lyric',
                           })}
                         />
-                        {selectedItem ? (
+                        {inputValue ? (
                           <ControllerButton
                             onClick={clearSelection}
                             aria-label="clear selection"
@@ -222,8 +215,7 @@ class Controller extends React.Component {
                                 {...getItemProps({
                                   item: song,
                                   index,
-                                  isActive: highlightedIndex === index,
-                                  isSelected: selectedItem === song,
+                                  isActive: highlightedIndex === index
                                 })}
                               >
                                 {song.title}
@@ -276,7 +268,7 @@ class Controller extends React.Component {
         </div>
         <div className="monitor d-flex flex-column">
           <div className="song">
-            {this.state.currentSong !== null && !!this.state.setlist.length
+            {this.state.currentSong !== null && this.state.setlist && this.state.setlist[this.state.currentSong]
               ?
               <div>
                 <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
@@ -287,7 +279,7 @@ class Controller extends React.Component {
                 )}
               </div>
               :
-              <div className="title">App Name</div>
+              <div className="title">Transparency</div>
             }
           </div>
           <div className="control-panel row align-items-center">
@@ -332,6 +324,10 @@ class Controller extends React.Component {
     if (e.target.tagName.toLowerCase() !== 'input') {
       switch (e.key) {
         /* Set Control */
+        case '/':
+          e.preventDefault();
+          document.getElementById('downshift-0-input').focus();
+          break;
         case 'a':
         case 'A':
           this.previousSong();
