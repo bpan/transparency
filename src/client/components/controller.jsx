@@ -15,6 +15,8 @@ import {
   getItems,
 } from './autocomplete'
 
+const localStorage = window.localStorage;
+
 const reorder = (list, startIndex, endIndex) => {
   const result = [...list];
   const [removed] = result.splice(startIndex, 1);
@@ -26,28 +28,14 @@ const reorder = (list, startIndex, endIndex) => {
 class Controller extends React.Component {
   constructor(props) {
     super(props);
+    const setlistString = localStorage.getItem('setlist');
+    const songString = localStorage.getItem('currentSong');
+    const verseString = localStorage.getItem('currentVerse');
     this.state = {
       debugKey: 'a',
-      currentSong: 0,
-      currentVerse: 0,
-      setlist: [
-        {
-          title: 'In The Secret',
-          verses: [
-            'In the secret, in the quiet place.\nIn the stillness You are there.\nIn the secret, in the quiet hour\nI wait, only for You.\nCause I want to know You more.',
-            'I want to know You,\nI want to hear Your voice.\nI want to know You more.\nI want to touch You.\nI want to see Your face.\nI want to know You more.',
-            'I am reaching, for the highest goal,\nThat I might receive the prize.\nPressing onward,\nPushing every hindrance aside\nOut of my way.\nCause I want to know You more.'
-          ]
-        },
-        {
-          title: 'God of Wonders',
-          verses: [
-            'Lord of all creation\nOf water, earth and sky\nHeavens are Your tabernacle\nGlory to the Lord on high.',
-            'God of wonders beyond our galaxy\nYou are holy, holy.\nThe universe declares Your majesty\nYou are holy, holy.\nLord of heaven and earth. (echo)',
-            'Early in the morning\nI will celebrate the light.\nWhen I stumble in the darkness\nI will call You name by night.',
-            'Hallelujah to the Lord of heaven\nand earth.'
-          ]
-        }]
+      currentSong: songString ? parseInt(songString) : null,
+      currentVerse: verseString ? parseInt(verseString) : null,
+      setlist: setlistString ? JSON.parse(setlistString) : []
     };
     this.deleteSongAt = this.deleteSongAt.bind(this);
     this.songDragEnd = this.songDragEnd.bind(this);
@@ -58,18 +46,21 @@ class Controller extends React.Component {
 
   addSong(song) {
     const setlist = [...this.state.setlist, song];
+    localStorage.setItem('setlist', JSON.stringify(setlist));
     this.setState({setlist});
   }
 
   deleteSongAt(index) {
     return () => {
-      let currentSong = this.state.currentSong;
-      let currentVerse = this.state.currentVerse;
       if (this.state.setlist.length === 1) {
         // Deleting last song, nothing more to display
-        currentSong = null;
-        currentVerse = null;
+        localStorage.clear();
+        this.setState({'currentSong': null, 'currentVerse': null, 'setlist': []});
+        return;
       }
+      let currentSong = this.state.currentSong;
+      let currentVerse = this.state.currentVerse;
+
       if (index < this.state.currentSong) {
         // Deleting an earlier song will change the indexing
         currentSong = this.state.currentSong - 1;
@@ -85,6 +76,10 @@ class Controller extends React.Component {
 
       const setlist = [...this.state.setlist];
       setlist.splice(index, 1);
+
+      localStorage.setItem('currentSong', currentSong.toString());
+      localStorage.setItem('currentVerse', currentVerse.toString());
+      localStorage.setItem('setlist', JSON.stringify(setlist));
       this.setState({currentSong, currentVerse, setlist});
     };
   }
@@ -111,7 +106,9 @@ class Controller extends React.Component {
       result.destination.index
     );
 
-    this.setState({setlist, currentSong});
+    localStorage.setItem('currentSong', currentSong.toString());
+    localStorage.setItem('setlist', JSON.stringify(setlist));
+    this.setState({currentSong, setlist});
   }
 
   previousSong() {
@@ -130,23 +127,35 @@ class Controller extends React.Component {
     if (this.state.currentSong === index) {
       return;
     }
-    this.setState({currentSong: index, currentVerse: 0});
+
+    const currentSong = index;
+    const currentVerse = 0;
+
+    localStorage.setItem('currentSong', currentSong.toString());
+    localStorage.setItem('currentVerse', currentVerse.toString());
+    this.setState({currentSong, currentVerse});
   }
 
   // VERSES
 
   previousVerse() {
-    this.setState({currentVerse: this.state.currentVerse > 1 ? this.state.currentVerse - 1 : 0});
+    const currentVerse = this.state.currentVerse > 1 ? this.state.currentVerse - 1 : 0;
+    localStorage.setItem('currentVerse', currentVerse.toString());
+    this.setState({currentVerse});
   }
 
   nextVerse() {
     const songEnd = this.state.setlist[this.state.currentSong].verses.length - 1;
-    this.setState({currentVerse: this.state.currentVerse < songEnd - 1 ? this.state.currentVerse + 1 : songEnd});
+    const currentVerse = this.state.currentVerse < songEnd - 1 ? this.state.currentVerse + 1 : songEnd;
+    localStorage.setItem('currentVerse', currentVerse.toString());
+    this.setState({currentVerse});
   }
 
   jumpToVerse(index) {
     if (index < this.state.setlist[this.state.currentSong].verses.length) {
-      this.setState({currentVerse: index});
+      const currentVerse = index;
+      localStorage.setItem('currentVerse', currentVerse.toString());
+      this.setState({currentVerse});
     }
   }
 
