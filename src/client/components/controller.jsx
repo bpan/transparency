@@ -271,6 +271,7 @@ class Controller extends React.Component {
                 </Droppable>
               </DragDropContext>
             </div>
+            <a href={'display.html'} target={'display'}>Open the display window</a>
           </div>
           <div className="design-content">
           </div>

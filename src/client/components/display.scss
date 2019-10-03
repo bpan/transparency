@@ -10,7 +10,7 @@ body {
     &.white {
         background-color: black; color: white;
         
-        #song {
+        .song {
             .verse { color: #b3b3b3; }
             .current { color: white; }
         }
@@ -19,7 +19,7 @@ body {
     &.black {
         background-color: white; color: black;
         
-        #song {
+        .song {
             .verse { color: #333; }
             .current { color: black; }
         }
@@ -28,40 +28,20 @@ body {
 
 h1,h2,h3,h4,h5 { margin-top: 1em; margin-bottom: 1em; }
 
-#content { margin: 0px; padding: 0px 50px 0px 75px; }
-#song {
-    display: none; position: relative; top: 60px;
+#content { margin: 0; padding: 0 50px 0 75px; }
+.song {
+    position: relative; top: 60px;
     
-    .verseNum { display: none; }
+    .verse-number { display: none; }
     .versePad { padding-bottom: 1em; }
 }
-
-#setDiv { display: none; }
 
 #blackScreen {
     display: none;
     position: absolute;
-    z-index: -1; top: 0px; left: 0px; 
+    z-index: -1; top: 0; left: 0;
     width: 100%; height: 100%;
     background-color: black;
     
     /* .active { display: block; z-index: 100; background-color: black; } */
 }
-
-.introSlide {
-    background-repeat: no-repeat;
-    background-image: url(../images/fingers.png);
-    display: none;
-    position: absolute;
-    z-index: 10; top: -600px; left: -150px; 
-    padding: 0px 200px;
-    width: 600px; height: 600px; 
-    
-    > div { margin: 150px auto; text-align: center; }
-}
-
-/*
-div.current { color: yellow; }
-*/
-
-.debug { color: gray; clear: left; float: left; display: none; font-size: 0.9em; }
