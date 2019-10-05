@@ -1,47 +1,51 @@
 body {
-    background-attachment: fixed;
-    background-image: url(../images/black-diagonal-striped-plastic-texture.jpg);
-    font-family: Palatino, Georgia, Times New Roman, serif;
-    font-size: 2.5em;
-    margin-top: 0; margin-bottom: 0;
-    padding-top: 0; padding-bottom: 0;
-    overflow: hidden;
+  background-attachment: fixed;
+  background-image: url(../images/black-diagonal-striped-plastic-texture.jpg);
+  font-family: Palatino, Georgia, Times New Roman, serif;
+  font-size: 2.5em;
+  margin-top: 0; margin-bottom: 0;
+  padding-top: 0; padding-bottom: 0;
+  overflow: hidden;
 
-    &.white {
-        background-color: black; color: white;
-        
-        .song {
-            .verse { color: #b3b3b3; }
-            .current { color: white; }
-        }
-     }
-     
-    &.black {
-        background-color: white; color: black;
-        
-        .song {
-            .verse { color: #333; }
-            .current { color: black; }
-        }
-     }
+  &.white {
+    background-color: black; color: white;
+
+    .song {
+      .verse { color: #b3b3b3; }
+      .current { color: white; }
+    }
+  }
+
+  &.black {
+    background-color: white; color: black;
+
+    .song {
+      .verse { color: #333; }
+      .current { color: black; }
+    }
+  }
 }
 
-h1,h2,h3,h4,h5 { margin-top: 1em; margin-bottom: 1em; }
-
 #content { margin: 0; padding: 0 50px 0 75px; }
+
+.title { margin-top: 1em; margin-bottom: 1em; }
+
 .song {
-    position: relative; top: 60px;
-    
-    .verse-number { display: none; }
-    .versePad { padding-bottom: 1em; }
+  position: relative; top: 60px;
+
+  .verse-number { display: none; }
+  .verse-text {
+    padding-bottom: 1em;
+    white-space: pre-wrap;
+  }
 }
 
 #blackScreen {
-    display: none;
-    position: absolute;
-    z-index: -1; top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: black;
-    
-    /* .active { display: block; z-index: 100; background-color: black; } */
+  display: none;
+  position: absolute;
+  z-index: -1; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: black;
+
+  /* .active { display: block; z-index: 100; background-color: black; } */
 }
