@@ -1,11 +1,8 @@
 language: node_js
 node_js:
-  - "8.9.0"
+  - "8.16.1"
 before_install:
-  - npm i -g npm@5.6.0
-cache:
-  directories:
-  - $HOME/.npm
+  - npm i -g npm@6.11.2
 deploy:
   provider: heroku
   api_key:
