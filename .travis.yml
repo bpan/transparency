@@ -10,3 +10,4 @@ deploy:
   app: transparency-sing
   on:
     branch: master
+    node: "8.16.1"
