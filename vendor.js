@@ -3,4 +3,4 @@ module.exports = [
   'bootstrap/dist/css/bootstrap.min.css',
   'font-awesome/css/font-awesome.min.css',
   'jquery/dist/jquery.min.js'
-]
+];
