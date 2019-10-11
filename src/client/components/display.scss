@@ -31,7 +31,8 @@ body {
 .title { margin-top: 1em; margin-bottom: 1em; }
 
 .song {
-  position: relative; top: 60px;
+  position: relative;
+  transition: top 0.4s ease-in-out;
 
   .verse-number { display: none; }
   .verse-text {

@@ -283,9 +283,8 @@ class Controller extends React.Component {
               <div>
                 <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
                 {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
-                  <div onClick={() => this.jumpToVerse(index)}>
-                    <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
-                  </div>
+                  <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}
+                                onClick={() => this.jumpToVerse(index)}/>
                 )}
               </div>
               :

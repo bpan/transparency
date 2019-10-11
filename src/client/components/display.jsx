@@ -1,3 +1,4 @@
+import Measure from 'react-measure'
 import React from 'react';
 
 import './display.scss';
@@ -15,6 +16,8 @@ class Display extends React.Component {
       currentVerse: verseString ? parseInt(verseString) : null,
       setlist: setlistString ? JSON.parse(setlistString) : []
     };
+    this.state.verseHeights = new Array(this.state.setlist.length);
+
     this.storageHandler = this.storageHandler.bind(this);
   }
 
@@ -22,15 +25,23 @@ class Display extends React.Component {
     return (
       <div>
         <div id='content'>
-          <div className="song" style={{top: '60px'}}>
+          <div className="song" style={{top: -this.state.verseHeights.slice(0, this.state.currentVerse).reduce((a, b) => a + b, -20) + 'px'}}>
             {this.state.currentSong !== null && this.state.setlist && this.state.setlist[this.state.currentSong]
               ?
               <div>
                 <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
                 {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
-                  <div>
-                    <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
-                  </div>
+                  <Measure bounds onResize={contentRect => {
+                    const verseHeights = [...this.state.verseHeights];
+                    verseHeights[index] = contentRect.bounds.height;
+                    this.setState({verseHeights});
+                  }}>
+                    {({ measureRef }) => (
+                      <div ref={measureRef}>
+                        <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}/>
+                      </div>
+                    )}
+                  </Measure>
                 )}
               </div>
               :
