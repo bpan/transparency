@@ -8,14 +8,7 @@ import MonitorVerse from "./monitorVerse.jsx";
 class Display extends React.Component {
   constructor(props) {
     super(props);
-    const setlistString = localStorage.getItem('setlist');
-    const songString = localStorage.getItem('currentSong');
-    const verseString = localStorage.getItem('currentVerse');
-    this.state = {
-      currentSong: songString ? parseInt(songString) : null,
-      currentVerse: verseString ? parseInt(verseString) : null,
-      setlist: setlistString ? JSON.parse(setlistString) : []
-    };
+    this.state = this.getStorageState();
     this.state.verseHeights = new Array(this.state.setlist.length);
 
     this.storageHandler = this.storageHandler.bind(this);
@@ -50,23 +43,26 @@ class Display extends React.Component {
           </div>
         </div>
 
-        <div id='blackScreen'/>
+        <div id='black-screen' className={this.state.screenIsBlack ? 'screen-is-black' : ''}/>
       </div>
     );
   }
 
-  storageHandler(e) {
-    console.log('storageHandler: ' + e);
+  getStorageState() {
+    const blackString = localStorage.getItem('screenIsBlack');
     const setlistString = localStorage.getItem('setlist');
     const songString = localStorage.getItem('currentSong');
     const verseString = localStorage.getItem('currentVerse');
-    const state = {
+    return {
+      screenIsBlack: !!JSON.parse(blackString),
       currentSong: songString ? parseInt(songString) : null,
       currentVerse: verseString ? parseInt(verseString) : null,
       setlist: setlistString ? JSON.parse(setlistString) : []
     };
+  }
 
-    this.setState(state);
+  storageHandler(e) {
+    this.setState(this.getStorageState());
   }
 
   componentDidMount() {

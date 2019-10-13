@@ -117,8 +117,32 @@ body {
   
   .song {
     flex: 1;
-    padding-bottom: 20px;
+    position: relative;
+    margin-bottom: 20px;
     min-height: 500px;
+
+    .black-screen {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.5);
+
+      &.screen-is-black {
+        display: flex;
+      }
+
+      .text {
+        margin-top: 15px;
+        font-size: 65px;
+        color: rgba(255, 255, 255, .6);
+        -webkit-text-stroke: 1px #000;
+        paint-order: stroke fill;
+      }
+    }
   
     .title {
       margin-bottom: 20px;

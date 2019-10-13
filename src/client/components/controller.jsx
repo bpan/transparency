@@ -28,11 +28,12 @@ const reorder = (list, startIndex, endIndex) => {
 class Controller extends React.Component {
   constructor(props) {
     super(props);
+    const blackString = localStorage.getItem('screenIsBlack');
     const setlistString = localStorage.getItem('setlist');
     const songString = localStorage.getItem('currentSong');
     const verseString = localStorage.getItem('currentVerse');
     this.state = {
-      debugKey: 'a',
+      screenIsBlack: !!JSON.parse(blackString),
       currentSong: songString ? parseInt(songString) : null,
       currentVerse: verseString ? parseInt(verseString) : null,
       setlist: setlistString ? JSON.parse(setlistString) : []
@@ -40,6 +41,20 @@ class Controller extends React.Component {
     this.deleteSongAt = this.deleteSongAt.bind(this);
     this.songDragEnd = this.songDragEnd.bind(this);
     this.keyHandler = this.keyHandler.bind(this);
+  }
+
+  // SCREEN
+
+  screenBlack() {
+    const screenIsBlack = !this.state.screenIsBlack;
+    localStorage.setItem('screenIsBlack', screenIsBlack);
+    this.setState({screenIsBlack});
+  }
+
+  screenClear() {
+    localStorage.removeItem('currentSong');
+    localStorage.removeItem('currentVerse');
+    this.setState({currentSong: null, currentVerse: null});
   }
 
   // SETLIST
@@ -54,7 +69,9 @@ class Controller extends React.Component {
     return () => {
       if (this.state.setlist.length === 1) {
         // Deleting last song, nothing more to display
-        localStorage.clear();
+        localStorage.removeItem('currentSong');
+        localStorage.removeItem('currentVerse');
+        localStorage.removeItem('setlist');
         this.setState({'currentSong': null, 'currentVerse': null, 'setlist': []});
         return;
       }
@@ -112,13 +129,17 @@ class Controller extends React.Component {
   }
 
   previousSong() {
-    if (this.state.currentSong > 0) {
+    if (this.state.currentSong === null) {
+      this.jumpToSong(0);
+    } else if (this.state.currentSong > 0) {
       this.jumpToSong(this.state.currentSong - 1);
     }
   }
 
   nextSong() {
-    if (this.state.currentSong < this.state.setlist.length - 1) {
+    if (this.state.currentSong === null) {
+      this.jumpToSong(0);
+    } else if (this.state.currentSong < this.state.setlist.length - 1) {
       this.jumpToSong(this.state.currentSong + 1);
     }
   }
@@ -162,7 +183,6 @@ class Controller extends React.Component {
   render() {
     return (
       <div className="controller d-flex flex-row">
-        <input type="text" readOnly={true} style={{display: 'none', position: 'fixed'}} value={this.state.debugKey}/>
         <div className="workspace d-flex flex-column">
           <div className="tabs d-flex flex-row">
             <div className="tab setlist">
@@ -278,6 +298,9 @@ class Controller extends React.Component {
         </div>
         <div className="monitor d-flex flex-column">
           <div className="song">
+            <div className={`black-screen ${this.state.screenIsBlack ? 'screen-is-black' : ''}`}>
+              <div class={'text'}>Black screen</div>
+            </div>
             {this.state.currentSong !== null && this.state.setlist && this.state.setlist[this.state.currentSong]
               ?
               <div>
@@ -319,8 +342,11 @@ class Controller extends React.Component {
             {/*  </div>*/}
             {/*</div>*/}
             <div className="col d-flex flex-row align-items-center justify-content-center">
-              <div className="alert primary">Fade to black (B)</div>
-              <div id="clear-screen">Clear (C)</div>
+              <div style={{width: '160px', display: 'flex', justifyContent: 'center'}} className="alert primary"
+                   onClick={() => {this.screenBlack()}}>
+                {this.state.screenIsBlack ? 'Fade in (B)' : 'Fade to black (B)'}
+              </div>
+              <div id="clear-screen">Clear Song (C)</div>
             </div>
           </div>
         </div>
@@ -329,7 +355,6 @@ class Controller extends React.Component {
   }
 
   keyHandler(e) {
-    this.setState({debugKey: e.key});
     if (e.target.tagName.toLowerCase() !== 'input') {
       switch (e.key) {
         /* Set Control */
@@ -371,9 +396,13 @@ class Controller extends React.Component {
         /* Style Control */
         case 'b':
         case 'B':
+          e.preventDefault();
+          this.screenBlack();
           break;
         case 'c':
         case 'C':
+          e.preventDefault();
+          this.screenClear();
           break;
       }
     }

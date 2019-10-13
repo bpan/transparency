@@ -8,7 +8,10 @@ body {
   overflow: hidden;
 
   &.white {
-    background-color: black; color: white;
+    background-color: black;
+    color: white;
+    -webkit-text-stroke: 4px black;
+    paint-order: stroke fill;
 
     .song {
       .verse { color: #b3b3b3; }
@@ -17,7 +20,10 @@ body {
   }
 
   &.black {
-    background-color: white; color: black;
+    background-color: white;
+    color: black;
+    -webkit-text-stroke: 4px white;
+    paint-order: stroke fill;
 
     .song {
       .verse { color: #333; }
@@ -26,7 +32,11 @@ body {
   }
 }
 
-#content { margin: 0; padding: 0 50px 0 75px; }
+#content {
+  position: relative;
+  margin: 0;
+  padding: 0 50px 0 75px;
+}
 
 .title { margin-top: 1em; margin-bottom: 1em; }
 
@@ -41,12 +51,17 @@ body {
   }
 }
 
-#blackScreen {
-  display: none;
+#black-screen {
   position: absolute;
-  z-index: -1; top: 0; left: 0;
-  width: 100%; height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: black;
+  opacity: 0;
+  transition: opacity 0.5s;
 
-  /* .active { display: block; z-index: 100; background-color: black; } */
+  &.screen-is-black {
+    opacity: 1;
+  }
 }
