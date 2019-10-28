@@ -8,7 +8,7 @@ const serverConfig = {
   node: {
     __dirname: false
   },
-  entry: ['babel-polyfill', './server.js'],
+  entry: ['@babel/polyfill', './server.js'],
   mode: 'production',
   output: {
     filename: 'server.bundle.js',
@@ -23,7 +23,7 @@ const serverConfig = {
           loader: 'babel-loader',
           options: {
             presets: [
-              ['env', { targets: { node: 'current' }}]
+              ['@babel/preset-env', { targets: { node: 'current' }}]
             ]
           }
         }
@@ -55,16 +55,15 @@ const clientConfig = {
               cacheDirectory: true,
               presets: [
                 [
-                  'env',
+                  '@babel/preset-env',
                   {
                     modules: false,
                     targets: {
-                      browsers: ['last 2 versions', 'IE 11'],
-                      uglify: false
+                      browsers: ['last 2 versions', 'IE 11']
                     }
                   }
                 ],
-                ['react']
+                ['@babel/react']
               ]
             }
           }
