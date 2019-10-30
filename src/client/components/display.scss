@@ -42,7 +42,11 @@ body {
 
 .song {
   position: relative;
-  transition: top 0.4s ease-in-out;
+  transition: top 0.4s ease-in-out, opacity 0.2s ease-in-out;
+
+  &.song-exit {
+    opacity: 0;
+  }
 
   .verse-number { display: none; }
   .verse-text {
