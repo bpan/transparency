@@ -77,8 +77,7 @@ const clientConfig = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
-              minimize: false
+              sourceMap: true
             }
           }
         ]
@@ -91,7 +90,6 @@ const clientConfig = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              minimize: false,
               importLoaders: 1
             }
           },
