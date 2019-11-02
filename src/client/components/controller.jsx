@@ -29,11 +29,13 @@ class Controller extends React.Component {
   constructor(props) {
     super(props);
     const blackString = localStorage.getItem('screenIsBlack');
+    const clearedString = localStorage.getItem('screenIsCleared');
     const setlistString = localStorage.getItem('setlist');
     const songString = localStorage.getItem('currentSong');
     const verseString = localStorage.getItem('currentVerse');
     this.state = {
       screenIsBlack: !!JSON.parse(blackString),
+      screenIsCleared: !!JSON.parse(clearedString),
       currentSong: songString ? parseInt(songString) : null,
       currentVerse: verseString ? parseInt(verseString) : null,
       setlist: setlistString ? JSON.parse(setlistString) : []
@@ -52,9 +54,9 @@ class Controller extends React.Component {
   }
 
   screenClear() {
-    localStorage.removeItem('currentSong');
-    localStorage.removeItem('currentVerse');
-    this.setState({currentSong: null, currentVerse: null});
+    const screenIsCleared = !this.state.screenIsCleared;
+    localStorage.setItem('screenIsCleared', screenIsCleared);
+    this.setState({screenIsCleared});
   }
 
   // SETLIST
@@ -305,7 +307,8 @@ class Controller extends React.Component {
               ?
               <div>
                 <div className="title">{this.state.setlist[this.state.currentSong].title}</div>
-                {this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
+                {this.state.screenIsCleared ? '' :
+                  this.state.setlist[this.state.currentSong].verses.map((verse, index) =>
                   <MonitorVerse currentVerse={index === this.state.currentVerse} verseNumber={index + 1} verseText={verse}
                                 onClick={() => this.jumpToVerse(index)}/>
                 )}

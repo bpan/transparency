@@ -20,8 +20,8 @@ class Display extends React.Component {
     return (
       <div>
         <div id='content'>
-          <CSSTransition classNames="song" in={this.state.currentSong !== null && !this.state.fadeOutForNextSong}
-                         timeout={200} onExited={() => this.fadeInNextSong()}>
+          <CSSTransition in={this.state.currentSong !== null && !this.state.fadeOutForNextSong && !this.state.screenIsCleared}
+                         timeout={200} onExited={() => this.fadeInNextSong()} classNames="song">
             <div className="song" style={{top: -this.state.verseHeights.slice(0, this.state.currentVerse).reduce((a, b) => a + b, -20) + 'px'}}>
               {this.state.currentSong !== null && this.state.setlist && this.state.setlist[this.state.currentSong]
                 ?
@@ -55,11 +55,13 @@ class Display extends React.Component {
 
   getStorageState() {
     const blackString = localStorage.getItem('screenIsBlack');
+    const clearedString = localStorage.getItem('screenIsCleared');
     const setlistString = localStorage.getItem('setlist');
     const songString = localStorage.getItem('currentSong');
     const verseString = localStorage.getItem('currentVerse');
     return {
       screenIsBlack: !!JSON.parse(blackString),
+      screenIsCleared: !!JSON.parse(clearedString),
       currentSong: songString ? parseInt(songString) : null,
       currentVerse: verseString ? parseInt(verseString) : null,
       setlist: setlistString ? JSON.parse(setlistString) : []
@@ -68,7 +70,8 @@ class Display extends React.Component {
 
   storageChangeHandler(e) {
     const storageState = this.getStorageState();
-    const fadeOutForNextSong = this.state.currentSong !== null && this.state.currentSong !== storageState.currentSong;
+    const fadeOutForNextSong = this.state.currentSong !== null && this.state.currentSong !== storageState.currentSong
+      && !this.state.screenIsCleared;
     if (fadeOutForNextSong) {
       // Preserve current state and fade out
       this.setState({fadeOutForNextSong});
