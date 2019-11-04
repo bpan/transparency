@@ -21,7 +21,7 @@ class Display extends React.Component {
       <div>
         <div id='content'>
           <CSSTransition in={this.state.currentSong !== null && !this.state.fadeOutForNextSong && !this.state.screenIsCleared}
-                         timeout={200} onExited={() => this.fadeInNextSong()} classNames="song">
+                         timeout={300} onExited={() => this.fadeInNextSong()} classNames="song">
             <div className="song" style={{top: -this.state.verseHeights.slice(0, this.state.currentVerse).reduce((a, b) => a + b, -20) + 'px'}}>
               {this.state.currentSong !== null && this.state.setlist && this.state.setlist[this.state.currentSong]
                 ?

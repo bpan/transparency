@@ -10,7 +10,7 @@ body {
   &.white {
     background-color: black;
     color: white;
-    -webkit-text-stroke: 4px black;
+    -webkit-text-stroke: 4px #333;
     paint-order: stroke fill;
 
     .song {
