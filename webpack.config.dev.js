@@ -43,6 +43,17 @@ const clientConfig = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist/client')
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        }
+      }
+    }
+  },
   module: {
     rules: [
       {
