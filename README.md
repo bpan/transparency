@@ -16,24 +16,24 @@ https://transparency-sing.herokuapp.com/
 ### Tools needed:
 
 * https://postgresapp.com/
-  * Create a database called 'postgres'
+  * Create a database called `postgres`
   * Add the schema below
-* brew install node
-* npm install -g npm
-* npm install -g gulp-cli
+* `brew install node`
+* `npm install -g npm`
+* `npm install -g gulp-cli`
 
 ### Development server
 
 To build and launch a development server (with automatic server reload):
 
-* npm install
-* gulp clean
-* gulp serve
+* `npm install`
+* `gulp clean`
+* `gulp serve`
 
 To update package-lock.json:
 
-* rm -rf node_modules package-lock.json
-* npm install
+* `rm -rf node_modules package-lock.json`
+* `npm install`
 
 ### Schema
 
@@ -56,12 +56,12 @@ https://devcenter.heroku.com/articles/heroku-cli
 
 To test the current Heroku deployment, you can build and launch a production server locally:
 
-* npm install
-* heroku local
+* `npm install`
+* `heroku local`
 
 To build and run your local code in production mode:
 
-* gulp clean
-* gulp build
-* PORT=5000 DATABASE_URL="postgres://localhost/postgres" node dist/server/server.bundle.js
-(Export environment variables to the production start script command)
+* `gulp clean`
+* `gulp build`
+* `PORT=5000 DATABASE_URL="postgres://localhost/postgres" node dist/server/server.bundle.js`
+(Set environment variables and run the production script)
