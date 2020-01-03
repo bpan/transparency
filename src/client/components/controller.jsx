@@ -1,6 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift'
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom';
 
 import './controller.scss';
 import MonitorVerse from './monitorVerse.jsx';
@@ -259,7 +260,7 @@ class Controller extends React.Component {
                   )}
                 </Downshift>
               </div>
-              <a>Browse the library</a>
+              <Link to={'/library'}>Browse the library</Link>
             </div>
             <div className="setlist">
               <div className="heading">Your setlist</div>

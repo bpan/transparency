@@ -41,7 +41,7 @@ const clientConfig = {
   mode: 'production',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist/client')
+    path: path.resolve(__dirname, 'dist/client/assets')
   },
   optimization: {
     splitChunks: {
