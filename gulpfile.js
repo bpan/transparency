@@ -38,7 +38,12 @@ gulp.task('build:html', function () {
     .pipe(gulp.dest(buildDest));
 });
 
-gulp.task('build', gulp.parallel(['build:webpack', 'build:html']));
+gulp.task('build:favicon', function () {
+  return gulp.src('src/client/favicon/*')
+    .pipe(gulp.dest(buildDest + 'client/assets'));
+});
+
+gulp.task('build', gulp.parallel(['build:webpack', 'build:html', 'build:favicon']));
 
 gulp.task('set:dev', function (done) {
   webpackConfig = webpackConfigLocations.dev;

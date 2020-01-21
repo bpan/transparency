@@ -112,7 +112,7 @@ const clientConfig = {
         use: [{
           loader: 'file-loader',
           options: {
-            outputPath: 'assets'
+            publicPath: 'assets'
           }
         }]
       },
@@ -121,7 +121,7 @@ const clientConfig = {
         use: [{
           loader: 'file-loader',
           options: {
-            outputPath: 'assets'
+            publicPath: 'assets'
           }
         }]
       }
