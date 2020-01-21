@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const serverConfig = {
   target: 'node',
@@ -84,7 +83,7 @@ const clientConfig = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
@@ -96,7 +95,7 @@ const clientConfig = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
@@ -109,11 +108,21 @@ const clientConfig = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: 'file-loader'
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets'
+          }
+        }]
       },
       {
         test: /\.(svg|woff|woff2|ttf|eot)$/,
-        use: 'file-loader'
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets'
+          }
+        }]
       }
     ]
   },
@@ -121,10 +130,6 @@ const clientConfig = {
     new webpack.ProvidePlugin({
       $: 'jquery', // For bootstrap
       Popper: 'popper.js' // For bootstrap
-    }),
-    new MiniCssExtractPlugin({
-      allChunks: true,
-      filename: '[name].css'
     })
   ]
 };

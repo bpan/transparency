@@ -109,11 +109,21 @@ const clientConfig = {
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
-        use: 'file-loader'
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets'
+          }
+        }]
       },
       {
         test: /\.(svg|woff|woff2|ttf|eot)$/,
-        use: 'file-loader'
+        use: [{
+          loader: 'file-loader',
+          options: {
+            outputPath: 'assets'
+          }
+        }]
       }
     ]
   },
