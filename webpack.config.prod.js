@@ -35,7 +35,7 @@ const clientConfig = {
   context: path.resolve(__dirname, 'src/client'),
   entry: {
     display: './display.js',
-    controller: './controller.js'
+    index: './index.js'
   },
   mode: 'production',
   output: {

@@ -36,7 +36,7 @@ const clientConfig = {
   devtool: 'inline-source-map',
   entry: {
     display: './display.js',
-    controller: './controller.js'
+    index: './index.js'
   },
   mode: 'development',
   output: {
