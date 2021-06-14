@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bpan/transparency.svg?branch=master)](https://travis-ci.org/bpan/transparency)
+[![Node.js CI](https://github.com/bpan/transparency/actions/workflows/build-test.yml/badge.svg)](https://github.com/bpan/transparency/actions/workflows/build-test.yml)
 
 # Transparency
 Song lyric presentation program
