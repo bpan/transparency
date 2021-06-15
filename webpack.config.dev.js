@@ -84,10 +84,16 @@ const clientConfig = {
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader',
+            options: {
+              esModule: false,
+            },
+          },
           {
             loader: 'css-loader',
             options: {
+              esModule: false,
               sourceMap: true
             }
           }
@@ -96,10 +102,16 @@ const clientConfig = {
       {
         test: /\.scss$/,
         use: [
-          { loader: 'style-loader' },
+          {
+            loader: 'style-loader',
+            options: {
+              esModule: false,
+            },
+          },
           {
             loader: 'css-loader',
             options: {
+              esModule: false,
               sourceMap: true,
               importLoaders: 1
             }
