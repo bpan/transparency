@@ -1,4 +1,5 @@
 import express from 'express';
+import RateLimit from 'express-rate-limit';
 import path from 'path';
 import mime from 'mime';
 import serveStatic from 'serve-static';
@@ -6,6 +7,14 @@ import serveStatic from 'serve-static';
 import songs from './songs.js';
 
 const app = express();
+
+// Request rate limiting
+var limiter = new RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 500
+});
+app.set('trust proxy', 1);  // https://expressjs.com/en/guide/behind-proxies.html
+app.use(limiter);
 
 // Server API
 app.use('/server/songs', songs);
